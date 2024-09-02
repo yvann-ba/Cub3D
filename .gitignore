@@ -1,1 +1,5 @@
 minilibx-linux/
+src/*.o
+*.o
+*.a
+cub3d
