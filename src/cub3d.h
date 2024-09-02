@@ -1,8 +1,8 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define WIN_HEIGHT 720
-# define WIN_WIDTH 1280
+# define WIN_HEIGHT 600
+# define WIN_WIDTH 800
 //COLORS
 # define BLACK		"\033[0;30m"
 # define RED		"\033[0;31m"
@@ -18,5 +18,16 @@
 # include "../minilibx-linux/mlx.h"
 # include <time.h>
 # include "../Libft/libft.h"
+
+typedef struct s_data
+{
+    void *mlx;
+    void *mlx_win;
+    void *img;
+    int *addr;
+    int bpp;
+    int line_length;
+    int endian;
+} t_data;
 
 #endif
