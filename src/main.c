@@ -1,4 +1,4 @@
-#include "../includes/cub3d.h"
+#include "cub3d.h"
 
 //int main(int ac, char **av)
 int main(void)
@@ -8,5 +8,10 @@ int main(void)
 
     mlx = mlx_init();
     mlx_win = mlx_new_window(mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3D");
+    if (!mlx_win)
+    {
+        ft_printf("Error\nmlx_new_window() failed\n", 2);
+        exit(1);
+    }
     mlx_loop(mlx);
 }

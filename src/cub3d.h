@@ -17,5 +17,6 @@
 # include <stdlib.h>
 # include "../minilibx-linux/mlx.h"
 # include <time.h>
+# include "../Libft/libft.h"
 
 #endif
