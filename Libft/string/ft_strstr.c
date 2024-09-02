@@ -1,31 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_tab.c                                      :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/15 09:26:20 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/26 11:38:32 by ybarbot          ###   ########.fr       */
+/*   Created: 2024/05/24 12:25:30 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/05/24 12:25:37 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-
-void	ft_free_tab(char **str)
+char	*ft_strstr(char *str, char *to_find)
 {
 	int	i;
+	int	j;
+	int	is_present;
 
-	i = 0;
-	if (str)
+	if (to_find[0] == '\0')
+		return (str);
+	j = 0;
+	while (str[j])
 	{
-		while (str[i])
+		i = 0;
+		while (to_find[i])
 		{
-			free(str[i]);
-			str[i] = NULL;
+			if (to_find[i] != str[i + j])
+			{
+				is_present = 0;
+				break ;
+			}
+			is_present = 1;
 			i++;
 		}
-		free(str);
-		str = NULL;
+		if (is_present == 1)
+			return (str + j);
+		j++;
 	}
+	return (0);
 }

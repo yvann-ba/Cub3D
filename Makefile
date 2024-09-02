@@ -1,39 +1,43 @@
-NAME = ./cub3d
 CC = /bin/cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g 
 
-GREEN = \033[0;32m
-YELLOW = \033[0;33m
-RED = \033[0;31m
-NC = \033[0m
+SRCS = src/main.c
+OBJS = $(SRCS:.c=.o)
 
-SRC = main.c
+NAME = ./cub3d
+MLX_DIR = minilibx-linux
+MLX = $(MLX_DIR)/libmlx.a
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -L/usr/lib/X11 -lXext -lX11
 
-OBJ_DIR = ./obj
-OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
+LIBFT_DIR = Libft
+LIBFT = $(LIBFT_DIR)/libft.a
+INCLUDES = -I/usr/include -I$(MLX_DIR) -I$(LIBFT_DIR)/includes
+
+.PHONY: all clean fclean re libft mlx
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	@echo "$(YELLOW)Compiling source files...$(NC)"
-	@$(CC) $(OBJ) $(CFLAGS) -o $(NAME)
-	@echo "$(GREEN)Compilation is complete. Generated executable: $(NAME).$(NC)"
+$(LIBFT):
+	$(MAKE) --quiet -C $(LIBFT_DIR)
 
-$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
-	@$(CC) -c $< -o $@ $(CFLAGS)
+$(MLX):
+	$(MAKE) --quiet -C $(MLX_DIR)
 
-$(OBJ_DIR):
-	@/bin/mkdir -p $(OBJ_DIR)
+$(NAME): $(LIBFT) $(MLX) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(MLX_FLAGS) $(LIBFT)
+
+.c.o:
+	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
 
 clean:
-	@echo "$(YELLOW)Cleaning object files...$(NC)"
-	@/bin/rm -rf $(OBJ_DIR)
-	@echo "$(GREEN)Cleaning complete.$(NC)"
+	rm -f $(OBJS)
+	$(MAKE) --quiet -C $(LIBFT_DIR) clean
+	$(MAKE) --quiet -C $(MLX_DIR) clean
 
 fclean: clean
-	@echo "$(YELLOW)Removing executable $(NAME)...$(NC)"
-	@/bin/rm -f $(NAME)
-	@echo "$(GREEN)Removal complete.$(NC)"
+	rm -f $(NAME)
+	$(MAKE) --quiet -C $(LIBFT_DIR) fclean
+#	$(MAKE) --quiet -C $(MLX_DIR) fclean
 
 re: fclean all
 

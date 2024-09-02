@@ -1,38 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_copy_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 11:14:28 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/04 14:29:57 by ybarbot          ###   ########.fr       */
+/*   Created: 2024/04/03 12:10:14 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/05/30 10:17:55 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
-static int	cmp_char(char c1, char c2)
+char	**ft_copy_tab(char **tab)
 {
-	if ((unsigned char)c1 != (unsigned char)c2)
-		return ((unsigned char)c1 - (unsigned char)c2);
-	return (0);
-}
+	char	**tab_copy;
+	size_t	i;
+	size_t	tab_size;
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	size_t			i;
-
+	tab_size = ft_tab_len(tab);
+	tab_copy = (char **)ft_calloc(sizeof(char *), (tab_size + 1));
+	if (!tab_copy)
+		return (NULL);
 	i = 0;
-	if (!s1 || !s2)
-		return (s1 != s2);
-	while (s1[i] && s2[i] && i < n)
+	while (tab[i])
 	{
-		if (cmp_char(s1[i], s2[i]))
-			return (s1[i] - s2[i]);
+		tab_copy[i] = ft_strdup(tab[i]);
+		if (!tab_copy[i])
+		{
+			while (i > 0)
+				free(tab_copy[--i]);
+			free(tab_copy);
+			return (NULL);
+		}
 		i++;
 	}
-	if (i < n)
-		return (cmp_char(s1[i], s2[i]));
-	return (0);
+	tab_copy[i] = NULL;
+	return (tab_copy);
 }

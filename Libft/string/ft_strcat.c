@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/01 14:11:47 by lauger            #+#    #+#             */
-/*   Updated: 2023/11/01 15:06:07 by lauger           ###   ########.fr       */
+/*   Created: 2024/02/09 11:13:02 by lauger            #+#    #+#             */
+/*   Updated: 2024/04/04 13:42:43 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memchr(const void *s, int c, size_t n)
+char	*ft_strcat(char *dest, const char *src)
 {
-	size_t			cnt;
-	unsigned char	*s_cpy;
+	char	*ptr;
 
-	s_cpy = (unsigned char *) s;
-	cnt = 0;
-	while (cnt < n)
+	if (!dest || !src)
+		return (NULL);
+	ptr = dest;
+	while (*dest)
+		dest++;
+	while (*src != '\0')
 	{
-		if (s_cpy[cnt] == (unsigned char) c)
-			return (s_cpy + cnt);
-		cnt++;
+		*dest = *src;
+		dest++;
+		src++;
 	}
-	return (NULL);
+	*dest = '\0';
+	return (ptr);
 }

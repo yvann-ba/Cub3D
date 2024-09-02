@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_tab.c                                      :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/15 09:26:20 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/26 11:38:32 by ybarbot          ###   ########.fr       */
+/*   Created: 2024/03/25 13:09:46 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/04/04 14:29:25 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include "../libft.h"
 
-void	ft_free_tab(char **str)
+void	*ft_realloc(void *ptr, size_t size, size_t oldsize)
 {
-	int	i;
+	void	*newptr;
 
-	i = 0;
-	if (str)
-	{
-		while (str[i])
-		{
-			free(str[i]);
-			str[i] = NULL;
-			i++;
-		}
-		free(str);
-		str = NULL;
-	}
+	newptr = ft_calloc(1, size);
+	if (!newptr)
+		return (NULL);
+	if (!ptr)
+		return (newptr);
+	if (size < oldsize)
+		ft_memmove(newptr, ptr, size);
+	else
+		ft_memmove(newptr, ptr, oldsize);
+	free (ptr);
+	return (newptr);
 }

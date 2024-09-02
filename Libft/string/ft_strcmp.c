@@ -1,38 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/01 14:26:46 by lauger            #+#    #+#             */
-/*   Updated: 2023/11/04 12:16:51 by lauger           ###   ########.fr       */
+/*   Created: 2024/04/08 11:15:26 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/04/08 13:22:24 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
-int	ft_atoi(const char *str)
+static int	cmp_char(char c1, char c2)
 {
-	int	i;
-	int	res;
-	int	sign;	
+	if ((unsigned char)c1 != (unsigned char)c2)
+		return ((unsigned char)c1 - (unsigned char)c2);
+	return (0);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	i;
 
 	i = 0;
-	res = 0;
-	sign = 1;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
+	if (!s1 || !s2)
+		return (s1 != s2);
+	while (s1[i] && s2[i])
 	{
-		if (str[i] == '-')
-			sign *= -1;
+		if (cmp_char(s1[i], s2[i]) != 0)
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 		i++;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		res = res * 10 + str[i] - '0';
-		i++;
-	}
-	return (sign * res);
+	return (cmp_char(s1[i], s2[i]));
 }

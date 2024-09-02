@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   ft_strjoinfree.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/21 14:40:21 by lauger            #+#    #+#             */
-/*   Updated: 2024/01/07 08:06:18 by lauger           ###   ########.fr       */
+/*   Created: 2024/05/15 11:25:07 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/05/15 11:25:17 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../libft.h"
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoinfree(char *s1, char const *s2)
 {
 	char	*str;
 	size_t	i;
@@ -36,32 +36,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		str[j++] = s2[i];
 		i++;
 	}
-	free(s1);
 	str[j] = 0;
+	free(s1);
 	return (str);
-}
-
-int	check_str_char(char *line, char *buffer)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
-	while (line[i] != '\n' && line[i])
-		i++;
-	if (line[i] == '\n')
-	{
-		i++;
-		while (line[i])
-		{
-			buffer[j] = line[i];
-			j++;
-			i++;
-		}
-		buffer[j] = '\0';
-		line[i - j] = 0;
-		return (1);
-	}
-	return (0);
 }

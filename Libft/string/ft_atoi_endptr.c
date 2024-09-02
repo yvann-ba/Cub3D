@@ -1,31 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_tab.c                                      :+:      :+:    :+:   */
+/*   ft_atoi_endptr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/15 09:26:20 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/26 11:38:32 by ybarbot          ###   ########.fr       */
+/*   Created: 2024/04/22 10:40:11 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/04/22 10:40:13 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include "../libft.h"
 
-void	ft_free_tab(char **str)
+int	ft_atoi_endptr(const char *str, char **endptr)
 {
-	int	i;
+	int	result;
+	int	sign;
 
-	i = 0;
-	if (str)
+	result = 0;
+	sign = 1;
+	while (ft_isspace(*str))
+		str++;
+	if (*str == '+' || *str == '-')
 	{
-		while (str[i])
-		{
-			free(str[i]);
-			str[i] = NULL;
-			i++;
-		}
-		free(str);
-		str = NULL;
+		if (*str == '-')
+			sign = -1;
+		else
+			sign = 1;
+		str++;
 	}
+	while (ft_isdigit(*str))
+	{
+		result = result * 10 + (*str - '0');
+		str++;
+	}
+	if (endptr)
+		*endptr = (char *)str;
+	return (result * sign);
 }
