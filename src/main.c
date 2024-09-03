@@ -25,6 +25,7 @@ int main(int ac, char **av)
         exit(1);
     }
     data->img = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
-    data->addr = (int *)mlx_get_data_addr(data->img, &data->bpp, &data->line_length, data->addr);
-    mlx_loop(data->mlx);
+    data.addr = (int *)mlx_get_data_addr(data->img, &data->bpp, &data->line_length, &data->addr);
+    data.addr[]
+    mlx_loop(mlx);
 }
