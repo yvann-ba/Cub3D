@@ -6,11 +6,11 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 09:37:56 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/03 10:34:24 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/03 13:24:19 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 bool    has_cub_extenssion(char *filename)
 {

@@ -1,7 +1,7 @@
 CC = /bin/cc
-CFLAGS = -Wall -Wextra -Werror -g 
+CFLAGS = -Wall -Wextra -Werror -g
 
-SRCS = src/main.c src/open_file_check_format.c src/clean_exit.c
+SRCS = src/main.c src/parsing/open_file_check_format.c src/clean_exit.c src/parsing/file_content_validator.c
 OBJ_DIR = build
 OBJS = $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 
@@ -24,8 +24,9 @@ $(LIBFT):
 $(MLX):
 	$(MAKE) --quiet -C $(MLX_DIR)
 
+# Ensure all necessary directories exist before compilation
 $(OBJ_DIR)/%.o: src/%.c
-	@mkdir -p $(OBJ_DIR)  # Ensure build directory exists
+	@mkdir -p $(@D)  # Ensure the directory for the object file exists
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
