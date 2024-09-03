@@ -15,12 +15,18 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
+# include <string.h>
+# include <errno.h>
+# include <fcntl.h>
+# include <stdbool.h>
 # include "../minilibx-linux/mlx.h"
 # include <time.h>
 # include "../Libft/libft.h"
 
 typedef struct s_data
 {
+    int  fd_map;
     void *mlx;
     void *mlx_win;
     void *img;
@@ -29,5 +35,11 @@ typedef struct s_data
     int line_length;
     int endian;
 } t_data;
+
+//FILE
+int    open_file(char *file, t_data *data);
+
+//EXITS
+void    clean_exit(t_data *data);
 
 #endif

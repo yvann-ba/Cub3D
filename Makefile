@@ -1,8 +1,9 @@
 CC = /bin/cc
 CFLAGS = -Wall -Wextra -Werror -g 
 
-SRCS = src/main.c
-OBJS = $(SRCS:.c=.o)
+SRCS = src/main.c src/open_file_check_format.c src/clean_exit.c
+OBJ_DIR = build
+OBJS = $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 
 NAME = ./cub3d
 MLX_DIR = minilibx-linux
@@ -23,21 +24,22 @@ $(LIBFT):
 $(MLX):
 	$(MAKE) --quiet -C $(MLX_DIR)
 
+$(OBJ_DIR)/%.o: src/%.c
+	@mkdir -p $(OBJ_DIR)  # Ensure build directory exists
+	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
+
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(MLX_FLAGS) $(LIBFT)
 
-.c.o:
-	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
-
 clean:
-	rm -f $(OBJS)
+	rm -rf $(OBJ_DIR)
 	$(MAKE) --quiet -C $(LIBFT_DIR) clean
 	$(MAKE) --quiet -C $(MLX_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
 	$(MAKE) --quiet -C $(LIBFT_DIR) fclean
-#	$(MAKE) --quiet -C $(MLX_DIR) fclean
+	# $(MAKE) --quiet -C $(MLX_DIR) fclean  # Uncomment if `fclean` is defined for MLX
 
 re: fclean all
 
