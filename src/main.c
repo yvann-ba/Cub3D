@@ -1,6 +1,5 @@
 #include "cub3d.h"
 
-//int main(int ac, char **av)
 int main(int ac, char **av)
 {
     t_data *data;
@@ -12,7 +11,8 @@ int main(int ac, char **av)
     }
     data = malloc(sizeof(t_data));
     data->fd_map = open_file(av[1], data);
-    read_file_to_string(data->fd_map, data);
+    data->read_file.str_content = read_file_to_string(data->fd_map, data);
+    string_to_tab(data->read_file);
     if (!data)
     {
         ft_printf("Error\nmalloc() failed\n", 2);

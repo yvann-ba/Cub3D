@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 09:37:56 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/03 13:24:19 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/04 08:59:52 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int    open_file(char *file, t_data *data)
 {
     int     fd;
     
-    if (!file)
+    if (!file || !data)
         return (-1);
     if (has_cub_extenssion(file) == false)
     {

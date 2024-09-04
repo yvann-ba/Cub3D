@@ -32,8 +32,9 @@ typedef struct s_read_file t_read_file;
 typedef struct s_read_file
 {
     t_data  *data;
+    char    **tab_content;
     char    buffer[BUFFER_SIZE];
-    char    *content;
+    char    *str_content;
     ssize_t bytes_read;
     size_t  total_size;
     size_t  new_size;
@@ -56,6 +57,7 @@ typedef struct s_data
 //FILE
 int     open_file(char *file, t_data *data);
 char    *read_file_to_string(int fd, t_data *data);
+void    string_to_tab(t_read_file rf);
 
 //EXITS
 void    clean_exit(t_data *data);
