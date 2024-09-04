@@ -50,16 +50,17 @@ typedef struct s_data
     int         bpp;
     int         line_length;
     int         endian;
-    t_read_file read_file;
+    t_read_file *read_file;
 } t_data;
 
 
 //FILE
-int     open_file(char *file, t_data *data);
-char    *read_file_to_string(int fd, t_data *data);
-void    string_to_tab(t_read_file rf);
+int         open_file(char *file, t_data *data);
+t_read_file *read_file_to_string(int fd, t_data *data);
+void        string_to_tab(t_read_file *rf);
 
 //EXITS
 void    clean_exit(t_data *data);
+void    clean_return(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 10:50:40 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/04 09:51:40 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/04 10:42:58 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,42 +31,52 @@ static void    add_eof_content(t_read_file *rf)
     }
 }
 
-static t_read_file init_rf(t_data *data, int fd)
+static t_read_file *init_rf(t_data *data, int fd)
 {
-    t_read_file rf;
-    
-    rf.str_content = NULL;
-    rf.total_size = 0;
-    rf.data = data;
+    t_read_file *rf;
+
+    rf = malloc(sizeof(t_read_file));
+    if (rf == NULL)
+    {
+        perror("malloc");
+        clean_exit(data);
+    }
+    rf->str_content = NULL;
+    rf->total_size = 0;
+    rf->data = data;
     if (fd < 0)
     {
         perror("Invalid file descriptor");
-        clean_exit(rf.data);
+        free(rf);
+        clean_exit(rf->data);
     }
-    return (rf);
+    return rf;
 }
 
-char *read_file_to_string(int fd, t_data *data)
+
+t_read_file *read_file_to_string(int fd, t_data *data)
 {
-    t_read_file rf;
+    t_read_file *rf;
     char        *new_content;
 
     rf = init_rf(data, fd);
-    while ((rf.bytes_read = read(fd, rf.buffer, sizeof(rf.buffer))) > 0)
+    while ((rf->bytes_read = read(fd, rf->buffer, sizeof(rf->buffer))) > 0)
     {
-        rf.new_size = rf.total_size + rf.bytes_read;
-        new_content = ft_realloc(rf.str_content, rf.new_size + 1, ft_strlen(rf.str_content));
-        if (new_content == NULL) {
+        rf->new_size = rf->total_size + rf->bytes_read;
+        new_content = ft_realloc(rf->str_content, rf->new_size + 1, ft_strlen(rf->str_content));
+        if (new_content == NULL)
+        {
             perror("realloc");
-            free(rf.str_content);
-           clean_exit(rf.data);
+            free(rf->str_content);
+            free(rf);
+            clean_exit(rf->data);
         }
 
-        rf.str_content = new_content;
-        ft_memcpy(rf.str_content + rf.total_size, rf.buffer, rf.bytes_read);
-        rf.total_size += rf.bytes_read;
+        rf->str_content = new_content;
+        ft_memcpy(rf->str_content + rf->total_size, rf->buffer, rf->bytes_read);
+        rf->total_size += rf->bytes_read;
     }
-    add_eof_content(&rf);
-    ft_printf("FILE_CONTENT: %s\n", rf.str_content);
-    return (rf.str_content);
+    add_eof_content(rf);
+    rf->data = data;
+    return (rf);
 }

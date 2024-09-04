@@ -10,14 +10,14 @@ int main(int ac, char **av)
         return (1);
     }
     data = malloc(sizeof(t_data));
-    data->fd_map = open_file(av[1], data);
-    data->read_file.str_content = read_file_to_string(data->fd_map, data);
-    string_to_tab(data->read_file);
     if (!data)
     {
         ft_printf("Error\nmalloc() failed\n", 2);
         exit(1);
     }
-    free(data);
+    data->fd_map = open_file(av[1], data);
+    data->read_file = read_file_to_string(data->fd_map, data);
+    string_to_tab(data->read_file);
+    clean_return(data);
     return (0);
 }
