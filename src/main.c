@@ -18,6 +18,7 @@ int main(int ac, char **av)
     data->fd_map = open_file(av[1], data);
     data->read_file = read_file_to_string(data->fd_map, data);
     string_to_tab(data->read_file);
+    grab_data(data);
     clean_return(data);
     return (0);
 }

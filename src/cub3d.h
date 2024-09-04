@@ -4,6 +4,7 @@
 # define WIN_HEIGHT 600
 # define WIN_WIDTH 800
 # define BUFFER_SIZE 1024
+# define MAX_RGB 255
 
 //COLORS
 # define BLACK		"\033[0;30m"
@@ -38,18 +39,28 @@ typedef struct s_read_file
     ssize_t bytes_read;
     size_t  total_size;
     size_t  new_size;
+    char        *p_north;
+    char        *p_south;
+    char        *p_west;
+    char        *p_east;
 } t_read_file;
+
+typedef struct s_rgb
+{
+    size_t  red;
+    size_t  green;
+    size_t  blue;
+} t_rgb;
 
 typedef struct s_data
 {
+    void        *north;
+    void        *south;
+    void        *west;
+    void        *east;
+    t_rgb       *f_rgb;
+    t_rgb       *c_rgb;
     int         fd_map;
-    void        *mlx;
-    void        *mlx_win;
-    void        *img;
-    int         *addr;
-    int         bpp;
-    int         line_length;
-    int         endian;
     t_read_file *read_file;
 } t_data;
 
@@ -58,6 +69,8 @@ typedef struct s_data
 int         open_file(char *file, t_data *data);
 t_read_file *read_file_to_string(int fd, t_data *data);
 void        string_to_tab(t_read_file *rf);
+void	    grab_data(t_data *data);
+bool        has_extenssion(char *filename, char *extenssion);
 
 //EXITS
 void    clean_exit(t_data *data);

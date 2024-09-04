@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 09:08:25 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/04 11:18:58 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/04 11:21:27 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ void string_to_tab(t_read_file *rf)
         exit(1);
     }
     free(rf->str_content);
-    print_2d_array(rf->tab_content, 19);
+    print_2d_array(rf->tab_content, 21);
     return ;
 }

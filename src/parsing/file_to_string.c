@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 10:50:40 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/04 10:42:58 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/04 13:46:02 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ static t_read_file *init_rf(t_data *data, int fd)
         perror("malloc");
         clean_exit(data);
     }
+    rf->p_north = NULL;
+    rf->p_south = NULL;
+    rf->p_west = NULL;
+    rf->p_east = NULL;
     rf->str_content = NULL;
     rf->total_size = 0;
     rf->data = data;
