@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:06:18 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/04 13:47:18 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/05 09:02:12 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,31 +24,31 @@ static int	check_line(t_read_file *rf, char *id, int num_line)
 	return (result);
 }
 
-// static int	check_path(t_read_file *rf, int num_line)
-// {
-// 	char	*str;
+static int	check_path(t_read_file *rf, int num_line)
+{
+	char	*str;
 
-// 	if (rf == NULL)
-// 		clean_exit(rf->data);
-// 	str = ft_substr(rf->tab_content[num_line], 3, ft_strlen(rf->tab_content[num_line]) - 3);
-// 	if (str == NULL)
-// 		return (-1);
-// 	if (has_extenssion(str, ".xpm") == false)
-// 	{
-// 		free(str);
-// 		return (-1);
-// 	}
-// 	if (num_line == 0)
-// 		rf->p_north = str;
-// 	else if (num_line == 1)
-// 		rf->p_south = str;
-// 	else if (num_line == 2)
-// 		rf->p_west = str;
-// 	else
-// 		rf->p_east = str;
-// 	printf("%s", str);
-// 	return (0);
-// }
+	if (rf == NULL)
+		clean_exit(rf->data);
+	str = ft_substr(rf->tab_content[num_line], 3, ft_strlen(rf->tab_content[num_line]) - 3);
+	if (str == NULL)
+		return (-1);
+	if (has_extenssion(str, ".xpm") == false)
+	{
+		free(str);
+		return (-1);
+	}
+	if (num_line == 0)
+		rf->p_north = str;
+	else if (num_line == 1)
+		rf->p_south = str;
+	else if (num_line == 2)
+		rf->p_west = str;
+	else
+		rf->p_east = str;
+	printf("%s", str);
+	return (0);
+}
 
 static void	grab_sprite_paths(t_data *data)
 {
@@ -63,14 +63,14 @@ static void	grab_sprite_paths(t_data *data)
 			clean_exit(data);
 		}
 		printf("**********RIGHT**********\n");
-	// if	(check_path(data->read_file, 0) != 0
-	// 	|| check_path(data->read_file, 1) != 0
-	// 	|| check_path(data->read_file, 2) != 0
-	// 	|| check_path(data->read_file, 3) != 0)
-	// 	{
-	// 		ft_printf(RED "Error:\nFile not have the extenssion .xpm\n" WHITE);
-	// 		clean_exit(data);
-	// 	}
+	if	(check_path(data->read_file, 0) != 0
+		|| check_path(data->read_file, 1) != 0
+		|| check_path(data->read_file, 2) != 0
+		|| check_path(data->read_file, 3) != 0)
+		{
+			ft_printf(RED "Error:\nFile not have the extenssion .xpm\n" WHITE);
+			clean_exit(data);
+		}
 		return ;
 }
 

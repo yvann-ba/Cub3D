@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 10:30:12 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/04 13:39:26 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/05 09:10:55 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@ void    clean_exit(t_data *data)
         free(data->read_file->str_content);
     if (data->read_file->tab_content)
         ft_free_tab(data->read_file->tab_content);
-    if (data->read_file)
-        free(data->read_file);
-    if (data)
-        free(data);
     if (data->read_file->p_north)
         free(data->read_file->p_north);
     if (data->read_file->p_south)
@@ -30,6 +26,10 @@ void    clean_exit(t_data *data)
         free(data->read_file->p_west);
     if (data->read_file->p_east)
         free(data->read_file->p_east);
+    if (data->read_file)
+        free(data->read_file);
+    if (data)
+        free(data);
     exit(0);
 }
 
