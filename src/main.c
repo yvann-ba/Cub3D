@@ -1,5 +1,19 @@
 #include "cub3d.h"
 
+static void	init_data(t_data *data)
+{
+	data->f_rgb = ft_calloc(1, sizeof(t_rgb));
+	data->c_rgb = ft_calloc(1, sizeof(t_rgb));
+	if (data->f_rgb == NULL || data->c_rgb == NULL)
+		return ;
+	data->f_rgb->red = 0;
+	data->f_rgb->green = 0;
+	data->f_rgb->blue = 0;
+	data->c_rgb->red = 0;
+	data->c_rgb->green = 0;
+	data->c_rgb->blue = 0;
+}
+
 int main(int ac, char **av)
 {
 	t_data *data;
@@ -15,6 +29,7 @@ int main(int ac, char **av)
 		ft_printf("Error\nmalloc() failed\n", 2);
 		exit(1);
 	}
+	init_data(data);
 	data->fd_map = open_file(av[1], data);
 	data->read_file = read_file_to_string(data->fd_map, data);
 	string_to_tab(data->read_file);

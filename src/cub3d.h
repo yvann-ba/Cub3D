@@ -47,9 +47,9 @@ typedef struct s_read_file
 
 typedef struct s_rgb
 {
-    size_t  red;
-    size_t  green;
-    size_t  blue;
+    unsigned int  red;
+    unsigned int  green;
+    unsigned int  blue;
 } t_rgb;
 
 typedef struct s_data

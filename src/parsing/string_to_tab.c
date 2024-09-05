@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 09:08:25 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/05 11:39:16 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/05 13:46:13 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ void string_to_tab(t_read_file *rf)
 	if (rf->tab_content == NULL)
 	{
 		perror(RED "Error:\nInvalid malloc" WHITE);
-		free(rf->str_content);
-		free(rf->data);
-		free(rf);
-		exit(1);
+		clean_exit(rf->data);
 	}
 	print_2d_array(rf->tab_content, 21);
 	free(rf->str_content);
