@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:06:18 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/05 09:02:12 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/05 09:23:19 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static int	check_path(t_read_file *rf, int num_line)
 		rf->p_west = str;
 	else
 		rf->p_east = str;
-	printf("%s", str);
 	return (0);
 }
 
@@ -62,7 +61,6 @@ static void	grab_sprite_paths(t_data *data)
 			ft_printf(RED "Error:\nFile format is incorect\n" WHITE);
 			clean_exit(data);
 		}
-		printf("**********RIGHT**********\n");
 	if	(check_path(data->read_file, 0) != 0
 		|| check_path(data->read_file, 1) != 0
 		|| check_path(data->read_file, 2) != 0
@@ -79,5 +77,6 @@ void	grab_data(t_data *data)
 	if (!data || data == NULL)
 		return ;
 	grab_sprite_paths(data);
+	
 	return ;
 }
