@@ -6,20 +6,20 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:06:18 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/05 09:23:19 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/05 11:39:11 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static int	check_line(t_read_file *rf, char *id, int num_line)
+int	check_line(t_read_file *rf, char *id, int num_line, int value_check)
 {
 	int	result;
 
 	result = 0;
-	if (rf == NULL || ft_strlen(id) < 3)
+	if (rf == NULL || ft_strlen(id) < (size_t)value_check)
 		return (-1);
-	result = ft_strncmp(rf->tab_content[num_line], id, 3);
+	result = ft_strncmp(rf->tab_content[num_line], id, value_check);
 	
 	return (result);
 }
@@ -53,10 +53,10 @@ static void	grab_sprite_paths(t_data *data)
 {
 	if (data->read_file == NULL)
 		clean_exit(data);
-	if (check_line(data->read_file, "NO ", 0) != 0
-		|| check_line(data->read_file, "SO ", 1) != 0
-		|| check_line(data->read_file, "WE ", 2) != 0
-		|| check_line(data->read_file, "EA ", 3) != 0)
+	if (check_line(data->read_file, "NO ", 0, 3) != 0
+		|| check_line(data->read_file, "SO ", 1, 3) != 0
+		|| check_line(data->read_file, "WE ", 2, 3) != 0
+		|| check_line(data->read_file, "EA ", 3, 3) != 0)
 		{
 			ft_printf(RED "Error:\nFile format is incorect\n" WHITE);
 			clean_exit(data);
@@ -72,11 +72,26 @@ static void	grab_sprite_paths(t_data *data)
 		return ;
 }
 
+// static void	open_xpm_file(t_data *data)
+// {
+// 	data->north = mlx_xpm_file_to_image(mlx, data->read_file->p_north, &img_width, &img_height);
+// 	data->south = mlx_xpm_file_to_image(mlx, data->read_file->p_south, &img_width, &img_height);
+// 	data->west = mlx_xpm_file_to_image(mlx, data->read_file->p_west, &img_width, &img_height);
+// 	data->east = mlx_xpm_file_to_image(mlx, data->read_file->p_east, &img_width, &img_height);
+// 	if (data->north == NULL || data->south == NULL || data->west == NULL || data->east == NULL)
+// 	{
+// 		ft_printf(RED, "Error:\nImposible to open file.xpm"WHITE);
+// 		clean_exit(data);
+// 	}
+// 	return ;
+// }
+
 void	grab_data(t_data *data)
 {
 	if (!data || data == NULL)
 		return ;
 	grab_sprite_paths(data);
-	
+	//open_xpm_file(data);
+	grab_color(data);
 	return ;
 }

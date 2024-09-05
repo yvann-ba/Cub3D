@@ -71,6 +71,11 @@ t_read_file *read_file_to_string(int fd, t_data *data);
 void        string_to_tab(t_read_file *rf);
 void	    grab_data(t_data *data);
 bool        has_extenssion(char *filename, char *extenssion);
+int	        check_line(t_read_file *rf, char *id, int num_line, int value_check);
+void        grab_color(t_data *data);
+
+//TEMPOARY FUNCTIONS
+void    print_2d_array(char **array, int rows);
 
 //EXITS
 void    clean_exit(t_data *data);
