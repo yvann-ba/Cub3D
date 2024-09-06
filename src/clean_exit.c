@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 10:30:12 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/05 13:20:54 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/06 09:33:40 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void    clean_exit(t_data *data)
 		free(data->c_rgb);
 	if (data->f_rgb)
 		free(data->f_rgb);
+	if (data->map)
+		ft_free_tab(data->map);
 	if (data)
 		free(data);
 	exit(0);
@@ -57,6 +59,8 @@ void    clean_return(t_data *data)
 		free(data->c_rgb);
 	if (data->f_rgb)
 		free(data->f_rgb);
+	if (data->map)
+		ft_free_tab(data->map);
 	if (data)
 		free(data);
 	return ;

@@ -61,6 +61,7 @@ typedef struct s_data
     t_rgb       *f_rgb;
     t_rgb       *c_rgb;
     int         fd_map;
+    char        **map;
     t_read_file *read_file;
 } t_data;
 
@@ -73,6 +74,7 @@ void	    grab_data(t_data *data);
 bool        has_extenssion(char *filename, char *extenssion);
 int	        check_line(t_read_file *rf, char *id, int num_line, int value_check);
 void        grab_color(t_data *data);
+void        grab_map(t_data *data);
 
 //TEMPOARY FUNCTIONS
 void    print_2d_array(char **array, int rows);

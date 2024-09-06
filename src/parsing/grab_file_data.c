@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:06:18 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/05 11:44:56 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/06 09:32:20 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,11 @@ void	grab_data(t_data *data)
 {
 	if (!data || data == NULL)
 		return ;
+	//printf("-----%p------", data->read_file);
 	grab_sprite_paths(data);
 	//open_xpm_file(data);
+	//printf("here-------");
 	grab_color(data);
+	grab_map(data);
 	return ;
 }

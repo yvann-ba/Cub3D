@@ -20,7 +20,7 @@ int main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		ft_printf(RED"Error:\nNumber of arguments is incorrect:" WHITE"require format (./cub3d file.cub)");
+		ft_printf(RED"Error:\nNumber of arguments is incorrect:" WHITE" require format (./cub3d file.cub)\n");
 		return (1);
 	}
 	data = malloc(sizeof(t_data));
