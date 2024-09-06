@@ -9,11 +9,17 @@ void init_ray(t_ray *ray)
     ray->render_delay = 30; // milliseconds
     ray->player_fov = 60.0; // degrees
     ray->player_half_fov = ray->player_fov / 2;
-    ray->player_x = 2.0;
-    ray->player_y = 2.0;
+    ray->pos_x = 2.0;
+    ray->pos_y = 2.0;
     ray->player_angle = 90.0;
     ray->ray_increment_angle = ray->player_fov / ray->screen_width;
     ray->raycasting_precision = 64;
+    ray->dir_x = -1.0;
+    ray->dir_y = 0;
+    ray->plane_x = 0;
+    ray->plane_y = 0.66;
+    ray->time = 0;
+    ray->old_time = 0;
 
     int example_map[10][10] =
     {

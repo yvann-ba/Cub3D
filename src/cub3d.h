@@ -56,12 +56,18 @@ typedef struct s_ray
 	int		render_delay;
 	double	player_fov;
 	double	player_half_fov;
-	double	player_x;
-	double	player_y;
-	double	player_angle;
 	double	ray_increment_angle;
 	int		raycasting_precision;
 	int		map[10][10];
+	double	player_angle;
+	double	pos_x;
+	double	pos_y;
+	double  dir_x;
+	double  dir_y;
+	double  plane_x;
+	double  plane_y;
+	double  time;
+	double  old_time;
 } t_ray;
 
 typedef struct s_data
