@@ -20,7 +20,7 @@ void init_ray(t_ray *ray)
     ray->plane_y = 0.66;
     ray->time = 0;
     ray->old_time = 0;
-
+    ray->hit = 0;
     int example_map[10][10] =
     {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
