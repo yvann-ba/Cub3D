@@ -1,7 +1,13 @@
 CC = /bin/cc
-CFLAGS = -Wall -Wextra -Werror -g 
+CFLAGS = -Wall -Wextra -Werror -g
 
-SRCS = src/main.c src/open_file_check_format.c src/clean_exit.c
+SRCS =	src/main.c \
+		src/clean_exit.c \
+		src/init_graphics.c src/utils_graphics.c
+
+#		src/parsing/file_to_string.c src/parsing/string_to_tab.c \
+#		src/parsing/open_file_check_format.c \
+
 OBJ_DIR = build
 OBJS = $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 
@@ -24,8 +30,9 @@ $(LIBFT):
 $(MLX):
 	$(MAKE) --quiet -C $(MLX_DIR)
 
+# Ensure all necessary directories exist before compilation
 $(OBJ_DIR)/%.o: src/%.c
-	@mkdir -p $(OBJ_DIR)  # Ensure build directory exists
+	@mkdir -p $(@D)  # Ensure the directory for the object file exists
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
@@ -39,7 +46,7 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 	$(MAKE) --quiet -C $(LIBFT_DIR) fclean
-	# $(MAKE) --quiet -C $(MLX_DIR) fclean  # Uncomment if `fclean` is defined for MLX
+# $(MAKE) --quiet -C $(MLX_DIR) fclean  # Uncomment if `fclean` is defined for MLX
 
 re: fclean all
 
