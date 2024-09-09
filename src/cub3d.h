@@ -22,8 +22,10 @@
 # include <stdbool.h>
 # include "../minilibx-linux/mlx.h"
 # include <time.h>
+# include <sys/time.h>
 # include "../Libft/libft.h"
 # include <math.h>
+
 
 typedef struct s_data t_data;
 typedef struct s_read_file t_read_file;
@@ -38,6 +40,13 @@ typedef struct s_read_file
 	size_t  total_size;
 	size_t  new_size;
 } t_read_file;
+
+typedef struct s_color
+{
+	int r;
+	int g;
+	int b;
+} t_color;
 
 // RAYCASTING & GRAPHICS
 typedef struct s_ray
@@ -59,7 +68,7 @@ typedef struct s_ray
 	double	player_half_fov;
 	double	ray_increment_angle;
 	int		raycasting_precision;
-	int		map[10][10];
+	int		**map;
 	double	player_angle;
 	double	pos_x;
 	double	pos_y;
@@ -83,6 +92,13 @@ typedef struct s_ray
 	int     step_y;
 	int     hit;
 	int     side;
+	int     line_height;
+	int     draw_start;
+	int     draw_end;
+	double  move_speed;
+	double  rot_speed;
+	double  frame_time;
+
 } t_ray;
 
 typedef struct s_data
@@ -99,7 +115,9 @@ void	init_ray(t_ray *ray);
 int         open_file(char *file, t_data *data);
 t_read_file *read_file_to_string(int fd, t_data *data);
 void        string_to_tab(t_read_file *rf);
+int			key_hook(int keycode, t_ray *ray);
 
+void parse_map(t_ray *ray, char **char_map, int **int_map, int width, int height);
 //EXITS
 void    clean_exit(t_data *data);
 void    clean_return(t_data *data);

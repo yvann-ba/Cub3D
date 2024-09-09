@@ -1,9 +1,10 @@
-CC = /bin/cc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 
 SRCS =	src/main.c \
 		src/clean_exit.c \
-		src/init_graphics.c src/utils_graphics.c
+		src/init_graphics.c src/utils_graphics.c \
+		src/key.c
 
 #		src/parsing/file_to_string.c src/parsing/string_to_tab.c \
 #		src/parsing/open_file_check_format.c \
@@ -14,7 +15,7 @@ OBJS = $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 NAME = ./cub3d
 MLX_DIR = minilibx-linux
 MLX = $(MLX_DIR)/libmlx.a
-MLX_FLAGS = -L$(MLX_DIR) -lmlx -L/usr/lib/X11 -lXext -lX11
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 
 LIBFT_DIR = Libft
 LIBFT = $(LIBFT_DIR)/libft.a

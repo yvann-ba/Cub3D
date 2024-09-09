@@ -21,24 +21,52 @@ void init_ray(t_ray *ray)
     ray->time = 0;
     ray->old_time = 0;
     ray->hit = 0;
-    int example_map[10][10] =
-    {
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-    };
+}
 
-    for (int i = 0; i < 10; i++)
+void parse_map(t_ray *ray, char **char_map, int **int_map, int width, int height)
+{
+    for (int y = 0; y < height; y++)
     {
-        for (int j = 0; j < 10; j++)
-            ray->map[i][j] = example_map[i][j];
+        for (int x = 0; x < width; x++)
+        {
+            if (char_map[y][x] == '1')
+                int_map[y][x] = 1;  // Wall
+            else if (char_map[y][x] == '0')
+                int_map[y][x] = 0;  // Empty space
+            else if (char_map[y][x] == 'N' || char_map[y][x] == 'S' || char_map[y][x] == 'E' || char_map[y][x] == 'W')
+            {
+                // Position the player
+                ray->pos_x = x + 0.5;
+                ray->pos_y = y + 0.5;
+
+                // Set the player's direction based on the character
+                if (char_map[y][x] == 'N') {
+                    ray->dir_x = 0;
+                    ray->dir_y = -1;
+                    ray->plane_x = 0.66;  // Camera plane for FOV
+                    ray->plane_y = 0;
+                }
+                else if (char_map[y][x] == 'S') {
+                    ray->dir_x = 0;
+                    ray->dir_y = 1;
+                    ray->plane_x = -0.66;
+                    ray->plane_y = 0;
+                }
+                else if (char_map[y][x] == 'E') {
+                    ray->dir_x = 1;
+                    ray->dir_y = 0;
+                    ray->plane_x = 0;
+                    ray->plane_y = 0.66;
+                }
+                else if (char_map[y][x] == 'W') {
+                    ray->dir_x = -1;
+                    ray->dir_y = 0;
+                    ray->plane_x = 0;
+                    ray->plane_y = -0.66;
+                }
+                int_map[y][x] = 0;  // Player's initial position should be walkable
+            }
+        }
     }
 }
 
