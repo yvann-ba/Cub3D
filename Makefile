@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 SRCS =	src/main.c \
 		src/clean_exit.c \
 		src/init_graphics.c src/utils_graphics.c \
-		src/key.c
+		src/key.c src/ray_utils.c
 
 #		src/parsing/file_to_string.c src/parsing/string_to_tab.c \
 #		src/parsing/open_file_check_format.c \

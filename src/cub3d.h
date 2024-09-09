@@ -107,6 +107,9 @@ typedef struct s_data
 	t_read_file *read_file;
 } t_data;
 
+int render_next_frame(t_ray *ray);
+long getTicks(void);
+
 //INIT
 void	init_ray(t_ray *ray);
 //int		init_graphics(t_graphics *graph);
