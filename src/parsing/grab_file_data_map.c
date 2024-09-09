@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:55:41 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/06 11:38:17 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/09 14:31:19 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	grab_map(t_data *data)
 		ft_putstr_fd(RED"Error:\nmalloc failed"WHITE, 2);
 		clean_exit(data);
 	}
-	print_2d_array(data->map, 15);
+	//print_2d_array(data->map, 15);
 	if (contains_only_these_caractere(data->map) == 1)
 	{
 		ft_putstr_fd(RED"Error:\nincorect map format"WHITE" must be contains of '0' '1' SPACE 'N' 'S' 'W' 'O'\n", 2);

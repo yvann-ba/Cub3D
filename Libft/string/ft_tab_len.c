@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tab_len.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 12:08:10 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/04/04 14:28:19 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/09/09 13:56:15 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_tab_len(char **tab)
 	size_t	i;
 
 	i = 0;
+	if (!tab)
+		return (0);
 	while (tab[i])
 		i++;
 	return (i);

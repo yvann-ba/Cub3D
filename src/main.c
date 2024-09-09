@@ -12,6 +12,7 @@ static void	init_data(t_data *data)
 	data->c_rgb->red = 0;
 	data->c_rgb->green = 0;
 	data->c_rgb->blue = 0;
+	data->map = NULL;
 }
 
 int main(int ac, char **av)

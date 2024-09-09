@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:06:18 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/09 13:32:09 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/09 14:31:25 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,44 +72,45 @@ static void	grab_sprite_paths(t_data *data)
 		return ;
 }
 
-// static void	open_xpm_file(t_data *data)
-// {
-// 	data->north = mlx_xpm_file_to_image(mlx, data->read_file->p_north, &img_width, &img_height);
-// 	data->south = mlx_xpm_file_to_image(mlx, data->read_file->p_south, &img_width, &img_height);
-// 	data->west = mlx_xpm_file_to_image(mlx, data->read_file->p_west, &img_width, &img_height);
-// 	data->east = mlx_xpm_file_to_image(mlx, data->read_file->p_east, &img_width, &img_height);
-// 	if (data->north == NULL || data->south == NULL || data->west == NULL || data->east == NULL)
-// 	{
-// 		ft_printf(RED, "Error:\nImposible to open file.xpm"WHITE);
-// 		clean_exit(data);
-// 	}
-// 	return ;
-// }
+static void	manage_utilization_flood_fill(t_data *data, char **c_map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while(c_map[i] != NULL)
+	{
+		j = 0;
+		while (c_map[i][j] != '\0')
+		{
+			if (flood_fill(c_map, i, j) == -1)
+			{
+				ft_putstr_fd(RED"Error:\nInvalid Map:" WHITE" must be around of walls\n", 2);
+				ft_free_tab(c_map);
+				clean_exit(data);
+			}
+			j++;
+		}
+		i++;
+	}
+}
 
 void	grab_data(t_data *data)
 {
+	char	**c_map;
+
 	if (!data || data == NULL)
 		return ;
 	grab_sprite_paths(data);
 	grab_color(data);
 	grab_map(data);
 	replace_space_to_wall(data);
-	print_2d_array(data->map, 15);
-	int i = 0;
-	int j = 0;
-	while(data->map[i] != NULL)
-	{
-		j = 0;
-		while (data->map[i][j] != '\0')
-		{
-			if (flood_fill(data->map, i, j) == -1)
-			{
-				ft_putstr_fd(RED"Error:\nInvalid Map, must be around of walls\n", 2);
-			}
-			j++;
-		}
-		i++;
-	}
-	print_2d_array(data->map, 15);
+	c_map = ft_copy_tab(data->map, ft_tab_len(data->map));
+	if (c_map == NULL)
+		return ;
+	//print_2d_array(data->map, 15);
+	manage_utilization_flood_fill(data, c_map);
+	//print_2d_array(c_map, 15);
+	ft_free_tab(c_map);
 	return ;
 }

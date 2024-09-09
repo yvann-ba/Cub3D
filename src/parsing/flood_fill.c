@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 10:22:10 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/09 13:30:03 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/09 13:38:53 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,17 @@ int	flood_fill(char **c_map, int x, int y)
 	}
 	if (c_map[x][y] == '0')
 	{
-		if (is_invalid(c_map, x - 1, y) ||  // north
-			is_invalid(c_map, x + 1, y) ||  // south
-			is_invalid(c_map, x, y - 1) ||  // west
-			is_invalid(c_map, x, y + 1)) {  // east
-			printf("Error: '0' found with invalid adjacent cell\n");
+		if (is_invalid(c_map, x - 1, y) ||
+			is_invalid(c_map, x + 1, y) ||
+			is_invalid(c_map, x, y - 1) ||
+			is_invalid(c_map, x, y + 1)) {
 			return (-1);
 		}
 		c_map[x][y] = '1';
 	}
-	flood_fill(c_map, x + 1, y);  // Go south
-	flood_fill(c_map, x - 1, y);  // Go north
-	flood_fill(c_map, x, y + 1);  // Go east
-	flood_fill(c_map, x, y - 1);  // Go west
+	flood_fill(c_map, x + 1, y);
+	flood_fill(c_map, x - 1, y);
+	flood_fill(c_map, x, y + 1);
+	flood_fill(c_map, x, y - 1);
 	return (0);
 }
