@@ -32,49 +32,51 @@ typedef struct s_read_file t_read_file;
 
 typedef struct s_read_file
 {
-    t_data  *data;
-    char    **tab_content;
-    char    buffer[BUFFER_SIZE];
-    char    *str_content;
-    ssize_t bytes_read;
-    size_t  total_size;
-    size_t  new_size;
-    char        *p_north;
-    char        *p_south;
-    char        *p_west;
-    char        *p_east;
+	t_data  *data;
+	char    **tab_content;
+	char    buffer[BUFFER_SIZE];
+	char    *str_content;
+	ssize_t bytes_read;
+	size_t  total_size;
+	size_t  new_size;
+	char        *p_north;
+	char        *p_south;
+	char        *p_west;
+	char        *p_east;
 } t_read_file;
 
 typedef struct s_rgb
 {
-    unsigned int  red;
-    unsigned int  green;
-    unsigned int  blue;
+	unsigned int  red;
+	unsigned int  green;
+	unsigned int  blue;
 } t_rgb;
 
 typedef struct s_data
 {
-    void        *north;
-    void        *south;
-    void        *west;
-    void        *east;
-    t_rgb       *f_rgb;
-    t_rgb       *c_rgb;
-    int         fd_map;
-    char        **map;
-    t_read_file *read_file;
+	void        *north;
+	void        *south;
+	void        *west;
+	void        *east;
+	t_rgb       *f_rgb;
+	t_rgb       *c_rgb;
+	int         fd_map;
+	char        **map;
+	t_read_file *read_file;
 } t_data;
 
 
 //FILE
-int         open_file(char *file, t_data *data);
-t_read_file *read_file_to_string(int fd, t_data *data);
-void        string_to_tab(t_read_file *rf);
-void	    grab_data(t_data *data);
-bool        has_extenssion(char *filename, char *extenssion);
-int	        check_line(t_read_file *rf, char *id, int num_line, int value_check);
-void        grab_color(t_data *data);
-void        grab_map(t_data *data);
+int			open_file(char *file, t_data *data);
+t_read_file	*read_file_to_string(int fd, t_data *data);
+void		string_to_tab(t_read_file *rf);
+void		grab_data(t_data *data);
+bool		has_extenssion(char *filename, char *extenssion);
+int			check_line(t_read_file *rf, char *id, int num_line, int value_check);
+void		grab_color(t_data *data);
+void		grab_map(t_data *data);
+int			replace_space_to_wall(t_data *data);
+int		flood_fill(char **c_map, int pos_x, int pos_y);
 
 //TEMPOARY FUNCTIONS
 void    print_2d_array(char **array, int rows);

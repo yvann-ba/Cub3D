@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:06:18 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/06 09:32:20 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/09 13:32:09 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,26 @@ void	grab_data(t_data *data)
 {
 	if (!data || data == NULL)
 		return ;
-	//printf("-----%p------", data->read_file);
 	grab_sprite_paths(data);
-	//open_xpm_file(data);
-	//printf("here-------");
 	grab_color(data);
 	grab_map(data);
+	replace_space_to_wall(data);
+	print_2d_array(data->map, 15);
+	int i = 0;
+	int j = 0;
+	while(data->map[i] != NULL)
+	{
+		j = 0;
+		while (data->map[i][j] != '\0')
+		{
+			if (flood_fill(data->map, i, j) == -1)
+			{
+				ft_putstr_fd(RED"Error:\nInvalid Map, must be around of walls\n", 2);
+			}
+			j++;
+		}
+		i++;
+	}
+	print_2d_array(data->map, 15);
 	return ;
 }

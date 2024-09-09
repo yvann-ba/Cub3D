@@ -3,7 +3,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 
 SRCS = src/main.c src/parsing/open_file_check_format.c src/clean_exit.c src/parsing/file_to_string.c \
 		src/parsing/string_to_tab.c src/parsing/grab_file_data.c src/parsing/grab_file_data_color.c \
-		src/parsing/grab_file_data_map.c
+		src/parsing/grab_file_data_map.c src/parsing/flood_fill.c
 OBJ_DIR = build
 OBJS = $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 
