@@ -27,17 +27,6 @@
 typedef struct s_data t_data;
 typedef struct s_read_file t_read_file;
 
-typedef struct s_read_file
-{
-	t_data  *data;
-	char    **tab_content;
-	char    buffer[BUFFER_SIZE];
-	char    *str_content;
-	ssize_t bytes_read;
-	size_t  total_size;
-	size_t  new_size;
-} t_read_file;
-
 // RAYCASTING & GRAPHICS
 typedef struct s_ray
 {
@@ -64,11 +53,6 @@ typedef struct s_ray
 	int		map[10][10];
 } t_ray;
 
-typedef struct s_data
-{
-	int         fd_map;
-	t_read_file *read_file;
-} t_data;
 
 //INIT
 void	init_ray(t_ray *ray);
