@@ -6,7 +6,8 @@ SRCS = src/main.c src/parsing/open_file_check_format.c src/clean_exit.c src/pars
 		src/parsing/grab_file_data_color.c \
 		src/init_graphics.c src/utils_graphics.c \
 		src/parsing/flood_fill.c \
-		src/key.c src/ray_utils.c
+		src/key_move.c src/ray_utils.c \
+		src/map_utils.c src/raycasting.c
 OBJ_DIR = build
 OBJS = $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 

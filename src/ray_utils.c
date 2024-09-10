@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-long getTicks(void)
+long get_current_time_millis(void)
 {
     struct timeval time;
     gettimeofday(&time, NULL);

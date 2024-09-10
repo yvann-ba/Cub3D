@@ -30,6 +30,43 @@
 typedef struct s_data t_data;
 typedef struct s_read_file t_read_file;
 
+typedef struct s_read_file
+{
+	t_data		*data;
+	char		**tab_content;
+	char		buffer[BUFFER_SIZE];
+	char		*str_content;
+	ssize_t		bytes_read;
+	size_t		total_size;
+	size_t		new_size;
+	char		*p_north;
+	char		*p_south;
+	char		*p_west;
+	char		*p_east;
+} t_read_file;
+
+typedef struct s_rgb
+{
+	unsigned int	red;
+	unsigned int	green;
+	unsigned int	blue;
+} t_rgb;
+
+typedef struct s_data
+{
+	void		*north;
+	void		*south;
+	void		*west;
+	void		*east;
+	t_rgb		*f_rgb;
+	t_rgb		*c_rgb;
+	int			fd_map;
+	char**		map;
+	int			map_width;
+	int			map_height;
+	t_read_file	*read_file;
+} t_data;
+
 // RAYCASTING & GRAPHICS
 typedef struct s_ray
 {
@@ -41,6 +78,7 @@ typedef struct s_ray
 	int         line_length;
 	int         endian;
 
+	int     **int_map;
 	int     screen_width;
 	int     screen_height;
 	int		screen_half_width;
@@ -83,41 +121,7 @@ typedef struct s_ray
 
 } t_ray;
 
-typedef struct s_read_file
-{
-	t_data		*data;
-	char		**tab_content;
-	char		buffer[BUFFER_SIZE];
-	char		*str_content;
-	ssize_t		bytes_read;
-	size_t		total_size;
-	size_t		new_size;
-	char		*p_north;
-	char		*p_south;
-	char		*p_west;
-	char		*p_east;
-} t_read_file;
-
-typedef struct s_rgb
-{
-	unsigned int	red;
-	unsigned int	green;
-	unsigned int	blue;
-} t_rgb;
-
-typedef struct s_data
-{
-	void		*north;
-	void		*south;
-	void		*west;
-	void		*east;
-	t_rgb		*f_rgb;
-	t_rgb		*c_rgb;
-	int			fd_map;
-	char**		map;
-	t_read_file	*read_file;
-} t_data;
-
+//--------------------------------------------LILIEN
 //FILE
 int			open_file(char *file, t_data *data);
 t_read_file	*read_file_to_string(int fd, t_data *data);
@@ -128,33 +132,41 @@ int			check_line(t_read_file *rf, char *id, int num_line, int value_check);
 void		grab_color(t_data *data);
 void		grab_map(t_data *data);
 int			replace_space_to_wall(t_data *data);
-int		flood_fill(char **c_map, int pos_x, int pos_y);
+int			flood_fill(char **c_map, int pos_x, int pos_y);
+int         open_file(char *file, t_data *data);
+t_read_file *read_file_to_string(int fd, t_data *data);
+void        string_to_tab(t_read_file *rf);
 
 //TEMPOARY FUNCTIONS
 void    print_2d_array(char **array, int rows);
 
-void parse_map(t_ray *ray, char **char_map, int **int_map, int width, int height);
-//EXITS
+//--------------------------------------------LILIEN
+
+
+
+//INIT_GRAPHICS
+void	init_ray_values(t_ray *ray);
+void    init_ray(t_ray *ray, t_data *data, int **int_map);
+void 	setup_mlx(t_ray *ray);
+
+//CLEAN_EXIT
 void    clean_exit(t_data *data);
 void    clean_return(t_data *data);
-void	cleanup_graphics(t_ray *ray);
 
+//RAYCASTING
 int render_next_frame(t_ray *ray);
-long getTicks(void);
 
-//INIT
-void	init_ray(t_ray *ray);
-//int		init_graphics(t_graphics *graph);
+//RAY_UTILS
+long get_current_time_millis(void);
 
-//FILE
-int         open_file(char *file, t_data *data);
-t_read_file *read_file_to_string(int fd, t_data *data);
-void        string_to_tab(t_read_file *rf);
-int			key_hook(int keycode, t_ray *ray);
+//MAP_UTILS
+int **allocate_int_map(t_data *data);
+void set_player_position(t_ray *ray, int x, int y, char direction);
+void parse_map(t_ray *ray, t_data *data, int **int_map);
 
-void parse_map(t_ray *ray, char **char_map, int **int_map, int width, int height);
-
-//EXITS
-void	cleanup_graphics(t_ray *ray);
+//KEY_MOVE
+int 	move_player(int keycode, t_ray *ray);
+int 	rotate_player(int keycode, t_ray *ray);
+int		key_hook(int keycode, t_ray *ray);
 
 #endif
