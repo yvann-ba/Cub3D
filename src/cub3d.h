@@ -26,9 +26,63 @@
 # include "../minilibx-linux/mlx.h"
 # include <time.h>
 # include "../Libft/libft.h"
+# include <math.h>
 
 typedef struct s_data t_data;
 typedef struct s_read_file t_read_file;
+
+// RAYCASTING & GRAPHICS
+typedef struct s_ray
+{
+	void        *mlx;
+	void        *mlx_win;
+	void        *img;
+	int         *addr;
+	int         bpp;
+	int         line_length;
+	int         endian;
+
+	int     screen_width;
+	int     screen_height;
+	int		screen_half_width;
+	int		screen_half_height;
+	int		render_delay;
+	double	player_fov;
+	double	player_half_fov;
+	double	ray_increment_angle;
+	int		raycasting_precision;
+	int		**map;
+	double	player_angle;
+	double	pos_x;
+	double	pos_y;
+	double  dir_x;
+	double  dir_y;
+	double  plane_x;
+	double  plane_y;
+	double camera_x;
+	double ray_dir_x;
+	double ray_dir_y;
+	double  time;
+	double  old_time;
+	int     map_x;
+	int     map_y;
+	double  side_dist_x;
+	double  side_dist_y;
+	double  delta_dist_x;
+	double  delta_dist_y;
+	double  perp_wall_dist;
+	int     step_x;
+	int     step_y;
+	int     hit;
+	int     side;
+	int     line_height;
+	int     draw_start;
+	int     draw_end;
+	double  move_speed;
+	double  rot_speed;
+	double  frame_time;
+
+} t_ray;
 
 typedef struct s_read_file
 {
@@ -65,7 +119,6 @@ typedef struct s_data
 	t_read_file	*read_file;
 } t_data;
 
-
 //FILE
 int			open_file(char *file, t_data *data);
 t_read_file	*read_file_to_string(int fd, t_data *data);
@@ -84,5 +137,23 @@ void    print_2d_array(char **array, int rows);
 //EXITS
 void    clean_exit(t_data *data);
 void    clean_return(t_data *data);
+
+int render_next_frame(t_ray *ray);
+long getTicks(void);
+
+//INIT
+void	init_ray(t_ray *ray);
+//int		init_graphics(t_graphics *graph);
+
+//FILE
+int         open_file(char *file, t_data *data);
+t_read_file *read_file_to_string(int fd, t_data *data);
+void        string_to_tab(t_read_file *rf);
+int			key_hook(int keycode, t_ray *ray);
+
+void parse_map(t_ray *ray, char **char_map, int **int_map, int width, int height);
+
+//EXITS
+void	cleanup_graphics(t_ray *ray);
 
 #endif
