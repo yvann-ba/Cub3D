@@ -122,20 +122,30 @@ typedef struct s_ray
 } t_ray;
 
 //--------------------------------------------LILIEN
-//FILE
+
+//open_file_check_format.c
 int			open_file(char *file, t_data *data);
-t_read_file	*read_file_to_string(int fd, t_data *data);
-void		string_to_tab(t_read_file *rf);
-void		grab_data(t_data *data);
 bool		has_extenssion(char *filename, char *extenssion);
+
+//file_to_string.c
+t_read_file	*read_file_to_string(int fd, t_data *data);
+
+//string_to_tab.c
+void		string_to_tab(t_read_file *rf);
+
+//grab_file_data.c
+void		grab_data(t_data *data);
 int			check_line(t_read_file *rf, char *id, int num_line, int value_check);
+
+//grab_file_data_color.c
 void		grab_color(t_data *data);
+
+//grab_file_data_map.c
 void		grab_map(t_data *data);
+
+//flood_fill.c
 int			replace_space_to_wall(t_data *data);
 int			flood_fill(char **c_map, int pos_x, int pos_y);
-int         open_file(char *file, t_data *data);
-t_read_file *read_file_to_string(int fd, t_data *data);
-void        string_to_tab(t_read_file *rf);
 
 //TEMPOARY FUNCTIONS
 void    print_2d_array(char **array, int rows);
@@ -150,8 +160,8 @@ void    init_ray(t_ray *ray, t_data *data, int **int_map);
 void 	setup_mlx(t_ray *ray);
 
 //CLEAN_EXIT
-void    clean_exit(t_data *data);
-void    clean_return(t_data *data);
+void    pars_clean_exit(t_data *data);
+void    pars_clean_return(t_data *data);
 
 //RAYCASTING
 int render_next_frame(t_ray *ray);

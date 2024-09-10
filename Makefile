@@ -1,7 +1,7 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 
-SRCS = src/main.c src/parsing/open_file_check_format.c src/clean_exit.c src/parsing/file_to_string.c \
+SRCS = src/main.c src/parsing/open_file_check_format.c src/pars_clean_exit.c src/parsing/file_to_string.c \
 		src/parsing/string_to_tab.c  src/parsing/grab_file_data.c src/parsing/grab_file_data_map.c \
 		src/parsing/grab_file_data_color.c \
 		src/init_graphics.c src/utils_graphics.c \
