@@ -12,6 +12,7 @@ SOURCES += \
 	./management_memory/ft_calloc.c \
 	./management_memory/ft_bzero.c \
 	./management_memory/ft_realloc.c \
+	./management_memory/ft_free_tab_int.c \
 	./ft_printf/ft_putnbr_base_len_origin.c \
 	./ft_printf/ft_putnbr_base_len.c \
 	./ft_printf/ft_putstr_len.c \

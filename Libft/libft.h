@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:25:45 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/09 13:58:54 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/10 11:00:04 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,6 @@ size_t		ft_tab_len(char **tab);
 char		**ft_copy_tab(char **tab, size_t tab_size);
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_atoi_endptr(const char *str, char **endptr);
+void		ft_free_tab_int(int **tab, int height);
 
 #endif

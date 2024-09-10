@@ -6,13 +6,13 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 10:30:12 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/06 09:33:40 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/10 12:51:02 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void    clean_exit(t_data *data)
+void	clean_exit(t_data *data)
 {
 	if (data->read_file->str_content)
 		free(data->read_file->str_content);
@@ -39,7 +39,7 @@ void    clean_exit(t_data *data)
 	exit(0);
 }
 
-void    clean_return(t_data *data)
+void	clean_return(t_data *data)
 {
 	if (data->read_file->str_content)
 		free(data->read_file->str_content);
@@ -61,6 +61,12 @@ void    clean_return(t_data *data)
 		free(data->f_rgb);
 	if (data->map)
 		ft_free_tab(data->map);
+	if (data->ray->img)
+		mlx_destroy_image(data->ray->mlx, data->ray->img);
+	if (data->ray->mlx_win)
+	mlx_destroy_window(data->ray->mlx, data->ray->mlx_win);
+	if (data->ray)
+		free(data->ray);
 	if (data)
 		free(data);
 	return ;

@@ -50,9 +50,12 @@ int main(int ac, char **av)
 	if (!ray)
 	{
 		ft_printf("Error\nmalloc() failed\n", 2);
+		ft_free_tab_int(int_map, map_height);
+		free(ray);
 		exit(1);
 	}
 	init_ray(ray);
+	data->ray = ray;
 	parse_map(ray, data->map, int_map, map_width, map_height);
 	ray->map = int_map;
 	ray->mlx = mlx_init();
@@ -60,6 +63,8 @@ int main(int ac, char **av)
 	if (!ray->mlx_win)
 	{
 		ft_printf("Error\nmlx_new_window() failed\n", 2);
+		ft_free_tab_int(int_map, map_height);
+		free(ray);
 		exit(1);
 	}
 	ray->img = mlx_new_image(ray->mlx, ray->screen_width, ray->screen_height);
@@ -70,6 +75,8 @@ int main(int ac, char **av)
 	mlx_loop_hook(ray->mlx, render_next_frame, ray); // Hook pour redessiner chaque frame
 	mlx_loop(ray->mlx);  // Boucle principal
 
+	ft_free_tab_int(int_map, map_height);
+	clean_return(data);
 	return (0);
 }
 

@@ -116,6 +116,7 @@ typedef struct s_data
 	int			fd_map;
 	char**		map;
 	t_read_file	*read_file;
+	t_ray		*ray;
 } t_data;
 
 //FILE
