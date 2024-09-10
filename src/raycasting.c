@@ -109,7 +109,7 @@ int render_next_frame(t_ray *ray)
     // Avoid division by zero and display the FPS
     if (ray->frame_time > 0)
     {
-        printf("FPS: %f\n", 1.0 / ray->frame_time);
+        //printf("FPS: %f\n", 1.0 / ray->frame_time);
     }
 
     // Calculate the movement and rotation speed based on the frame time

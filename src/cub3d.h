@@ -150,18 +150,18 @@ int			flood_fill(char **c_map, int pos_x, int pos_y);
 //TEMPOARY FUNCTIONS
 void    print_2d_array(char **array, int rows);
 
+//CLEAN_EXIT
+void    pars_clean_exit(t_data *data);
+void    pars_clean_return(t_data *data);
 //--------------------------------------------LILIEN
 
 
+//--------------------------------------------YVANN
 
 //INIT_GRAPHICS
 void	init_ray_values(t_ray *ray);
 void    init_ray(t_ray *ray, t_data *data, int **int_map);
 void 	setup_mlx(t_ray *ray);
-
-//CLEAN_EXIT
-void    pars_clean_exit(t_data *data);
-void    pars_clean_return(t_data *data);
 
 //RAYCASTING
 int render_next_frame(t_ray *ray);
@@ -178,5 +178,7 @@ void parse_map(t_ray *ray, t_data *data, int **int_map);
 int 	move_player(int keycode, t_ray *ray);
 int 	rotate_player(int keycode, t_ray *ray);
 int		key_hook(int keycode, t_ray *ray);
+
+//--------------------------------------------YVANN
 
 #endif

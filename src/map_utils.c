@@ -59,6 +59,7 @@ void set_player_position(t_ray *ray, int x, int y, char direction)
         ray->plane_x = 0;
         ray->plane_y = -0.66;
     }
+    printf("Player position set to: (%f, %f)\n", ray->pos_x, ray->pos_y);
 }
 
 void parse_map(t_ray *ray, t_data *data, int **int_map)
@@ -79,6 +80,7 @@ void parse_map(t_ray *ray, t_data *data, int **int_map)
             else if (data->map[y][x] == 'N' || data->map[y][x] == 'S' \
             || data->map[y][x] == 'E' || data->map[y][x] == 'W')
             {
+                printf("Player position found at: (%d, %d)\n", x, y);
                 set_player_position(ray, x, y, data->map[y][x]);
                 int_map[y][x] = 0;
             }

@@ -16,6 +16,7 @@ int move_player(int keycode, t_ray *ray)
         if (ray->map[(int)(ray->pos_x)][(int)(ray->pos_y - ray->dir_y * ray->move_speed)] == 0)
             ray->pos_y -= ray->dir_y * ray->move_speed;
     }
+    printf("Player moved to: (%f, %f)\n", ray->pos_x, ray->pos_y);
     return (0);
 }
 

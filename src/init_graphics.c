@@ -14,10 +14,6 @@ void init_ray_values(t_ray *ray)
     ray->player_angle = 90.0;
     ray->ray_increment_angle = ray->player_fov / ray->screen_width;
     ray->raycasting_precision = 64;
-    ray->dir_x = -1.0;
-    ray->dir_y = 0;
-    ray->plane_x = 0;
-    ray->plane_y = 0.66;
     ray->time = 0;
     ray->old_time = 0;
     ray->hit = 0;
@@ -46,6 +42,7 @@ void setup_mlx(t_ray *ray)
     }
     ray->img = mlx_new_image(ray->mlx, ray->screen_width, ray->screen_height);
     ray->addr = (int *)mlx_get_data_addr(ray->img, &ray->bpp, &ray->line_length, &ray->endian);
+
     mlx_hook(ray->mlx_win, 2, 1L << 0, key_hook, ray);
     mlx_loop_hook(ray->mlx, render_next_frame, ray);
     mlx_loop(ray->mlx);

@@ -40,6 +40,6 @@ int main(int ac, char **av)
     ray->int_map = allocate_int_map(data);
     init_ray(ray, data, ray->int_map);
     setup_mlx(ray);
-    render_next_frame(ray);
+    //render_next_frame(ray);
 	return (0);
 }
