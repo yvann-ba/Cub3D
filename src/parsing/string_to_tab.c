@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 09:08:25 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/10 09:17:07 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/10 13:18:20 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void string_to_tab(t_read_file *rf)
 	if (rf->tab_content == NULL)
 	{
 		ft_putstr_fd(RED "Error:\nInvalid malloc:" WHITE" each part must be separate with '\\n'\n", 2);
-		clean_exit(rf->data);
+		pars_clean_exit(rf->data);
 	}
 	free(rf->str_content);
 	rf->str_content = NULL;

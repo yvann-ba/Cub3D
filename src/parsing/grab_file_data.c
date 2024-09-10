@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:06:18 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/09 14:31:25 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/10 13:18:20 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	check_path(t_read_file *rf, int num_line)
 	char	*str;
 
 	if (rf == NULL)
-		clean_exit(rf->data);
+		pars_clean_exit(rf->data);
 	str = ft_substr(rf->tab_content[num_line], 3, ft_strlen(rf->tab_content[num_line]) - 3);
 	if (str == NULL)
 		return (-1);
@@ -52,14 +52,14 @@ static int	check_path(t_read_file *rf, int num_line)
 static void	grab_sprite_paths(t_data *data)
 {
 	if (data->read_file == NULL)
-		clean_exit(data);
+		pars_clean_exit(data);
 	if (check_line(data->read_file, "NO ", 0, 3) != 0
 		|| check_line(data->read_file, "SO ", 1, 3) != 0
 		|| check_line(data->read_file, "WE ", 2, 3) != 0
 		|| check_line(data->read_file, "EA ", 3, 3) != 0)
 		{
 			ft_printf(RED "Error:\nFile format is incorect\n" WHITE);
-			clean_exit(data);
+			pars_clean_exit(data);
 		}
 	if	(check_path(data->read_file, 0) != 0
 		|| check_path(data->read_file, 1) != 0
@@ -67,7 +67,7 @@ static void	grab_sprite_paths(t_data *data)
 		|| check_path(data->read_file, 3) != 0)
 		{
 			ft_printf(RED "Error:\nFile not have the extenssion .xpm\n" WHITE);
-			clean_exit(data);
+			pars_clean_exit(data);
 		}
 		return ;
 }
@@ -87,7 +87,7 @@ static void	manage_utilization_flood_fill(t_data *data, char **c_map)
 			{
 				ft_putstr_fd(RED"Error:\nInvalid Map:" WHITE" must be around of walls\n", 2);
 				ft_free_tab(c_map);
-				clean_exit(data);
+				pars_clean_exit(data);
 			}
 			j++;
 		}

@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 09:42:57 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/05 13:39:39 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/10 13:18:20 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	check_and_store_calor_values(char **f_tab, char ** c_tab, t_data *da
 		ft_putstr_fd(RED "Error:\nFile format is incorect:" WHITE" rgb values must be between 0 and 255\n", 2);
 		ft_free_tab(f_tab);
 		ft_free_tab(c_tab);
-		clean_exit(data);
+		pars_clean_exit(data);
 	}
 	ft_free_tab(f_tab);
 	ft_free_tab(c_tab);
@@ -74,7 +74,7 @@ static int	take_colors_value(t_read_file *rf)
 	{
 		free(f_str);
 		free(c_str);
-		clean_exit(rf->data);
+		pars_clean_exit(rf->data);
 	}
 	free(f_str);
 	free(c_str);
@@ -83,7 +83,7 @@ static int	take_colors_value(t_read_file *rf)
 		ft_putstr_fd(RED"Error:\nBad Syntax:" WHITE" value rgb requiere 3 values (value2,value2,value3)\n", 2);
 		ft_free_tab(f_tab);
 		ft_free_tab(c_tab);
-		clean_exit(rf->data);
+		pars_clean_exit(rf->data);
 	}
 	check_and_store_calor_values(f_tab, c_tab, rf->data);
 	return (0);
@@ -97,7 +97,7 @@ void	grab_color(t_data *data)
 		|| check_line(data->read_file, "C ", 5, 2) != 0)
 		{
 			ft_putstr_fd(RED "Error:\nFile format is incorect\n" WHITE, 2);
-			clean_exit(data);
+			pars_clean_exit(data);
 		}
 	take_colors_value(data->read_file);
 	return ;
