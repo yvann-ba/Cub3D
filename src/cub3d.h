@@ -1,8 +1,6 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define WIN_HEIGHT 600
-# define WIN_WIDTH 800
 # define BUFFER_SIZE 1024
 # define MAX_RGB 255
 
@@ -25,6 +23,7 @@
 # include <stdbool.h>
 # include "../minilibx-linux/mlx.h"
 # include <time.h>
+# include <sys/time.h>
 # include "../Libft/libft.h"
 # include <math.h>
 
@@ -134,9 +133,11 @@ int		flood_fill(char **c_map, int pos_x, int pos_y);
 //TEMPOARY FUNCTIONS
 void    print_2d_array(char **array, int rows);
 
+void parse_map(t_ray *ray, char **char_map, int **int_map, int width, int height);
 //EXITS
 void    clean_exit(t_data *data);
 void    clean_return(t_data *data);
+void	cleanup_graphics(t_ray *ray);
 
 int render_next_frame(t_ray *ray);
 long getTicks(void);
