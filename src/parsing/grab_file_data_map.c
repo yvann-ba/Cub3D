@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:55:41 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/09 14:31:19 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/10 09:08:53 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	check_only_spaces_ones(char **map, int id, int sizeMap)
 	if (!map || id < 0 || id > sizeMap || sizeMap <= 0 || !map[id])
  		return (1);
 	i = 0;
-	while (i < sizeMap)
+	while (i < sizeMap && map[id][i])
 	{
 		if (map[id][i] != ' ' && map[id][i] != '1')
 			return (1);
