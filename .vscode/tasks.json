@@ -1,0 +1,19 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "make",  // Use 'make' to invoke the Makefile
+            "args": [
+                "-C", "${workspaceFolder}"  // Run 'make' in the workspace directory
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Task to build the project using Makefile."
+        }
+    ]
+}

@@ -2,6 +2,7 @@
 # define CUB3D_H
 
 # define BUFFER_SIZE 1024
+# define MAX_RGB 255
 
 //COLORS
 # define BLACK		"\033[0;30m"
@@ -26,27 +27,32 @@
 # include "../Libft/libft.h"
 # include <math.h>
 
-
+typedef struct s_ray t_ray;
 typedef struct s_data t_data;
 typedef struct s_read_file t_read_file;
 
 typedef struct s_read_file
 {
-	t_data  *data;
-	char    **tab_content;
-	char    buffer[BUFFER_SIZE];
-	char    *str_content;
-	ssize_t bytes_read;
-	size_t  total_size;
-	size_t  new_size;
+	t_data		*data;
+	char		**tab_content;
+	char		buffer[BUFFER_SIZE];
+	char		*str_content;
+	ssize_t		bytes_read;
+	size_t		total_size;
+	size_t		new_size;
+	char		*p_north;
+	char		*p_south;
+	char		*p_west;
+	char		*p_east;
 } t_read_file;
 
-typedef struct s_color
+typedef struct s_rgb
 {
-	int r;
-	int g;
-	int b;
-} t_color;
+	unsigned int	red;
+	unsigned int	green;
+	unsigned int	blue;
+} t_rgb;
+
 
 // RAYCASTING & GRAPHICS
 typedef struct s_ray
@@ -59,6 +65,7 @@ typedef struct s_ray
 	int         line_length;
 	int         endian;
 
+	int     **int_map;
 	int     screen_width;
 	int     screen_height;
 	int		screen_half_width;
@@ -98,32 +105,89 @@ typedef struct s_ray
 	double  move_speed;
 	double  rot_speed;
 	double  frame_time;
+	t_data	*data;
 
 } t_ray;
 
 typedef struct s_data
 {
-	int         fd_map;
-	t_read_file *read_file;
+	void		*north;
+	void		*south;
+	void		*west;
+	void		*east;
+	t_rgb		*f_rgb;
+	t_rgb		*c_rgb;
+	int			fd_map;
+	char**		map;
+	int			map_width;
+	int			map_height;
+	t_read_file	*read_file;
+	t_ray		*ray;
 } t_data;
 
+//--------------------------------------------LILIEN
+
+//open_file_check_format.c
+int			open_file(char *file, t_data *data);
+bool		has_extenssion(char *filename, char *extenssion);
+
+//file_to_string.c
+t_read_file	*read_file_to_string(int fd, t_data *data);
+
+//string_to_tab.c
+void		string_to_tab(t_read_file *rf);
+
+//grab_file_data.c
+void		grab_data(t_data *data);
+int			check_line(t_read_file *rf, char *id, int num_line, int value_check);
+
+//grab_file_data_color.c
+void		grab_color(t_data *data);
+
+//grab_file_data_map.c
+void		grab_map(t_data *data);
+
+//flood_fill.c
+int			replace_space_to_wall(t_data *data);
+int			flood_fill(char **c_map, int pos_x, int pos_y);
+
+//TEMPOARY FUNCTIONS
+void    print_2d_array(char **array, int rows);
+
+//CLEAN_EXIT
+void    pars_clean_exit(t_data *data);
+void    pars_clean_return(t_data *data);
+//--------------------------------------------LILIEN
+
+
+//--------------------------------------------YVANN
+
+//INIT_GRAPHICS
+void	init_ray_values(t_ray *ray);
+void	init_ray(t_ray *ray, t_data *data, int **int_map);
+int		setup_mlx(t_ray *ray);
+int		clean_close_windows(void *param);
+
+//CLEAN_EXIT
+void    pars_clean_exit(t_data *data);
+void    pars_clean_return(t_data *data);
+
+//RAYCASTING
 int render_next_frame(t_ray *ray);
-long getTicks(void);
 
-//INIT
-void	init_ray(t_ray *ray);
-//int		init_graphics(t_graphics *graph);
+//RAY_UTILS
+long get_current_time_millis(void);
 
-//FILE
-int         open_file(char *file, t_data *data);
-t_read_file *read_file_to_string(int fd, t_data *data);
-void        string_to_tab(t_read_file *rf);
-int			key_hook(int keycode, t_ray *ray);
+//MAP_UTILS
+int **allocate_int_map(t_data *data);
+void set_player_position(t_ray *ray, int x, int y, char direction);
+void parse_map(t_ray *ray, t_data *data, int **int_map);
 
-void parse_map(t_ray *ray, char **char_map, int **int_map, int width, int height);
-//EXITS
-void    clean_exit(t_data *data);
-void    clean_return(t_data *data);
-void	cleanup_graphics(t_ray *ray);
+//KEY_MOVE
+int 	move_player(int keycode, t_ray *ray);
+int 	rotate_player(int keycode, t_ray *ray);
+int		key_hook(int keycode, t_ray *ray);
+
+//--------------------------------------------YVANN
 
 #endif

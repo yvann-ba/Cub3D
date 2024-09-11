@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   grab_data.c                                        :+:      :+:    :+:   */
+/*   ft_free_tab_int.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 11:06:18 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/04 11:06:55 by lauger           ###   ########.fr       */
+/*   Created: 2024/09/10 10:56:32 by lauger            #+#    #+#             */
+/*   Updated: 2024/09/10 10:59:54 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../libft.h"
 
-void    grab_data(t_data *data)
+void	ft_free_tab_int(int **tab, int height)
 {
-    
+	int	i;
+
+	i = 0;
+	while (i < height)
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }

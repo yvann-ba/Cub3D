@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tab_len.c                                       :+:      :+:    :+:   */
+/*   ft_print_char_tab.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 12:08:10 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/09/09 13:56:15 by lauger           ###   ########.fr       */
+/*   Created: 2024/09/11 10:24:47 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/09/11 10:33:45 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "libft.h"
 
-size_t	ft_tab_len(char **tab)
+void    ft_print_char_tab(char **tab)
 {
-	size_t	i;
+    int i;
+    int tab_len;
 
-	i = 0;
-	if (!tab)
-		return (0);
-	while (tab[i])
-		i++;
-	return (i);
+    i = 0;
+    tab_len = ft_tab_len(tab);
+    while (i < tab_len)
+    {
+        ft_printf("%s\n", tab[i]);
+        i++;
+    }
 }
