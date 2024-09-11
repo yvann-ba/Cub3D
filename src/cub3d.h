@@ -165,7 +165,7 @@ void    pars_clean_return(t_data *data);
 //INIT_GRAPHICS
 void	init_ray_values(t_ray *ray);
 void	init_ray(t_ray *ray, t_data *data, int **int_map);
-void	setup_mlx(t_ray *ray, t_data *data);
+int		setup_mlx(t_ray *ray);
 int		clean_close_windows(void *param);
 
 //CLEAN_EXIT
