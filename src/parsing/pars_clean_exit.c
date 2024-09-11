@@ -6,11 +6,11 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 10:30:12 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/10 13:23:27 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/11 13:44:17 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void    pars_clean_exit(t_data *data)
 {

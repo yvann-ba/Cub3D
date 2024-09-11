@@ -39,7 +39,6 @@ int main(int ac, char **av)
 	ray = (t_ray *)malloc(sizeof(t_ray));
 	ray->int_map = allocate_int_map(data);
 	init_ray(ray, data, ray->int_map);
-	setup_mlx(ray, data);
-	render_next_frame(ray);
+	setup_mlx(ray);
 	return (0);
 }

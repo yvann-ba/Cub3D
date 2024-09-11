@@ -37,22 +37,6 @@ void    init_ray(t_ray *ray, t_data *data, int **int_map)
 	ray->data = data;
 }
 
-// static int	close_window(void *param)
-// {
-// 	t_data	*data;
-
-// 	data = (t_data *)param;
-// 	ft_printf(RED"~~~~~~~~~~~~%p~~~~~~~~~~~\n"WHITE, data->ray);
-// 	ft_printf(RED"~~~~~~~~~~~~%p~~~~~~~~~~~\n"WHITE, data->ray->addr);
-// 	ft_printf(RED"~~~~~~~~~~~~%p~~~~~~~~~~~\n"WHITE, data->ray->img);
-// 	mlx_destroy_image(data->ray->addr, data->ray->img);
-// 	//mlx_clear_window(data->ray->mlx, data->ray->addr);
-// 	mlx_destroy_display(data->ray->addr);
-// 	mlx_destroy_window(data->ray->addr, data->ray->mlx_win);
-// 	pars_clean_exit(data);
-// 	return (0);
-// }
-
 int	clean_close_windows(void *param)
 {
 	t_data	*data;
@@ -72,20 +56,27 @@ int	clean_close_windows(void *param)
 	return (0);
 }
 
-void setup_mlx(t_ray *ray, t_data *data)
+int setup_mlx(t_ray *ray)
 {
 	ray->mlx = mlx_init();
+	if (ray->mlx == NULL)
+	{
+		printf("Error:mlx_init() failed\n");
+		return (1);
+	}
 	ray->mlx_win = mlx_new_window(ray->mlx, ray->screen_width, ray->screen_height, "Cub3D");
 	if (!ray->mlx_win)
 	{
-		ft_printf("Error\nmlx_new_window() failed\n", 2);
-		exit(1);
+		free(ray->mlx_win);
+		printf("Error:mlx_new_window() failed\n");
+		return(1);
 	}
-//	mlx_hook(ray->mlx_win, 17, 0, clean_close_windows, data);
 	ray->img = mlx_new_image(ray->mlx, ray->screen_width, ray->screen_height);
 	ray->addr = (int *)mlx_get_data_addr(ray->img, &ray->bpp, &ray->line_length, &ray->endian);
+
 	mlx_hook(ray->mlx_win, 2, 1L << 0, key_hook, ray);
 	mlx_loop_hook(ray->mlx, render_next_frame, ray);
-	mlx_hook(ray->mlx_win, 17, 0, clean_close_windows, data);
+	mlx_hook(ray->mlx_win, 17, 0, clean_close_windows, ray->data);
 	mlx_loop(ray->mlx);
+	return (0);
 }
