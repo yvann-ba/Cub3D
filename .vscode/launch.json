@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "cub3d",  // Name of the configuration
+            "type": "cppdbg",  // Type is C++ debugger
+            "request": "launch",  // Launch a process
+            "program": "${workspaceFolder}/cub3d",  // Path to your executable
+            "args": ["maps/good/test_textures.cub"],  // Pass the required argument
+            "stopAtEntry": false,  // Don't stop at the entry point
+            "cwd": "${workspaceFolder}",  // Set the current working directory
+            "environment": [],  // Additional environment variables
+            "externalConsole": false,  // Use the internal VS Code console
+            "MIMode": "gdb",  // We're using GDB as the debugger
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "build",  // Build the program before launching
+            "miDebuggerPath": "/usr/bin/gdb",  // Path to gdb on your system
+            "internalConsoleOptions": "openOnSessionStart"  // Open the internal console
+        }
+    ]
+}
