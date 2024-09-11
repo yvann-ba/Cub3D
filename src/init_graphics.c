@@ -36,14 +36,15 @@ int setup_mlx(t_ray *ray)
     ray->mlx = mlx_init();
     if (ray->mlx == NULL)
     {
-        printf("Error:mlx_init() failed\n", 2);
+        printf("Error:mlx_init() failed\n");
         return (1);
     }
     ray->mlx_win = mlx_new_window(ray->mlx, ray->screen_width, ray->screen_height, "Cub3D");
     if (!ray->mlx_win)
     {
-        printf("Error:mlx_new_window() failed\n", 2);
-        exit(1);
+        free(ray->mlx_win);
+        printf("Error:mlx_new_window() failed\n");
+        return(1);
     }
     ray->img = mlx_new_image(ray->mlx, ray->screen_width, ray->screen_height);
     ray->addr = (int *)mlx_get_data_addr(ray->img, &ray->bpp, &ray->line_length, &ray->endian);
@@ -51,4 +52,5 @@ int setup_mlx(t_ray *ray)
     mlx_hook(ray->mlx_win, 2, 1L << 0, key_hook, ray);
     mlx_loop_hook(ray->mlx, render_next_frame, ray);
     mlx_loop(ray->mlx);
+    return (0);
 }
