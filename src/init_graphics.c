@@ -31,13 +31,18 @@ void    init_ray(t_ray *ray, t_data *data, int **int_map)
     ray->map = int_map;
 }
 
-void setup_mlx(t_ray *ray)
+int setup_mlx(t_ray *ray)
 {
     ray->mlx = mlx_init();
+    if (ray->mlx == NULL)
+    {
+        printf("Error:mlx_init() failed\n", 2);
+        return (1);
+    }
     ray->mlx_win = mlx_new_window(ray->mlx, ray->screen_width, ray->screen_height, "Cub3D");
     if (!ray->mlx_win)
     {
-        ft_printf("Error\nmlx_new_window() failed\n", 2);
+        printf("Error:mlx_new_window() failed\n", 2);
         exit(1);
     }
     ray->img = mlx_new_image(ray->mlx, ray->screen_width, ray->screen_height);

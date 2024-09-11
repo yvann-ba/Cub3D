@@ -88,4 +88,10 @@ void parse_map(t_ray *ray, t_data *data, int **int_map)
         }
         y++;
     }
+    printf("Input Map (char):\n");
+    ft_print_char_tab(data->map);
+    printf("\n");
+    printf("Int Map to Ray:\n");
+    ft_print_int_tab(int_map, data->map_height, data->map_width);
+    printf("\n");
 }
