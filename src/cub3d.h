@@ -27,6 +27,7 @@
 # include "../Libft/libft.h"
 # include <math.h>
 
+typedef struct s_ray t_ray;
 typedef struct s_data t_data;
 typedef struct s_read_file t_read_file;
 
@@ -52,20 +53,6 @@ typedef struct s_rgb
 	unsigned int	blue;
 } t_rgb;
 
-typedef struct s_data
-{
-	void		*north;
-	void		*south;
-	void		*west;
-	void		*east;
-	t_rgb		*f_rgb;
-	t_rgb		*c_rgb;
-	int			fd_map;
-	char**		map;
-	int			map_width;
-	int			map_height;
-	t_read_file	*read_file;
-} t_data;
 
 // RAYCASTING & GRAPHICS
 typedef struct s_ray
@@ -118,8 +105,25 @@ typedef struct s_ray
 	double  move_speed;
 	double  rot_speed;
 	double  frame_time;
+	t_data	*data;
 
 } t_ray;
+
+typedef struct s_data
+{
+	void		*north;
+	void		*south;
+	void		*west;
+	void		*east;
+	t_rgb		*f_rgb;
+	t_rgb		*c_rgb;
+	int			fd_map;
+	char**		map;
+	int			map_width;
+	int			map_height;
+	t_read_file	*read_file;
+	t_ray		*ray;
+} t_data;
 
 //--------------------------------------------LILIEN
 
@@ -156,8 +160,9 @@ void    print_2d_array(char **array, int rows);
 
 //INIT_GRAPHICS
 void	init_ray_values(t_ray *ray);
-void    init_ray(t_ray *ray, t_data *data, int **int_map);
-void 	setup_mlx(t_ray *ray);
+void	init_ray(t_ray *ray, t_data *data, int **int_map);
+void	setup_mlx(t_ray *ray, t_data *data);
+int		clean_close_windows(void *param);
 
 //CLEAN_EXIT
 void    pars_clean_exit(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:55:41 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/10 13:18:20 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/10 13:53:16 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,12 @@ static int	contains_only_these_caractere(char **map)
 {
 	int	i;
 	int	j;
+	int	player;
 
 	if (!map)
 		return (-1);
 	i = 0;
+	player = 0;
 	while (map[i])
 	{
 		j = 0;
@@ -59,10 +61,15 @@ static int	contains_only_these_caractere(char **map)
 				&& map[i][j] != 'N' && map[i][j] != 'S' && map[i][j] != 'O'
 				&& map[i][j] != 'W')
 				return (1);
+			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'O'
+				|| map[i][j] == 'W')
+				player++;
 			j++;
 		}
 		i++;
 	}
+	if (player > 1 || player == 0)
+		return (1);
 	return (0);
 }
 

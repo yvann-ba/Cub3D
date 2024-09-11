@@ -36,10 +36,10 @@ int main(int ac, char **av)
 	data->read_file = read_file_to_string(data->fd_map, data);
 	string_to_tab(data->read_file);
 	grab_data(data);
-    ray = (t_ray *)malloc(sizeof(t_ray));
-    ray->int_map = allocate_int_map(data);
-    init_ray(ray, data, ray->int_map);
-    setup_mlx(ray);
-    render_next_frame(ray);
+	ray = (t_ray *)malloc(sizeof(t_ray));
+	ray->int_map = allocate_int_map(data);
+	init_ray(ray, data, ray->int_map);
+	setup_mlx(ray, data);
+	render_next_frame(ray);
 	return (0);
 }
