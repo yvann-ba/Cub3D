@@ -4,16 +4,16 @@ int move_player(int keycode, t_ray *ray)
 {
     if (keycode == 119) // Up arrow or W
     {
-        if (ray->map[(int)(ray->pos_x + ray->dir_x * ray->move_speed)][(int)(ray->pos_y)] == 0)
+        if (ray->int_map[(int)(ray->pos_x + ray->dir_x * ray->move_speed)][(int)(ray->pos_y)] == 0)
             ray->pos_x += ray->dir_x * ray->move_speed;
-        if (ray->map[(int)(ray->pos_x)][(int)(ray->pos_y + ray->dir_y * ray->move_speed)] == 0)
+        if (ray->int_map[(int)(ray->pos_x)][(int)(ray->pos_y + ray->dir_y * ray->move_speed)] == 0)
             ray->pos_y += ray->dir_y * ray->move_speed;
     }
     if (keycode == 115) // Down arrow or S
     {
-        if (ray->map[(int)(ray->pos_x - ray->dir_x * ray->move_speed)][(int)(ray->pos_y)] == 0)
+        if (ray->int_map[(int)(ray->pos_x - ray->dir_x * ray->move_speed)][(int)(ray->pos_y)] == 0)
             ray->pos_x -= ray->dir_x * ray->move_speed;
-        if (ray->map[(int)(ray->pos_x)][(int)(ray->pos_y - ray->dir_y * ray->move_speed)] == 0)
+        if (ray->int_map[(int)(ray->pos_x)][(int)(ray->pos_y - ray->dir_y * ray->move_speed)] == 0)
             ray->pos_y -= ray->dir_y * ray->move_speed;
     }
     printf("Player moved to: (%f, %f)\n", ray->pos_x, ray->pos_y);

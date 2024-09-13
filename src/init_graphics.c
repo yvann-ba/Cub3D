@@ -26,7 +26,7 @@ void    init_ray(t_ray *ray, t_data *data, int **int_map)
 	}
 	init_ray_values(ray);
 	parse_map(ray, data, int_map);
-	ray->map = int_map;
+	ray->int_map = int_map;
 	data->ray = ray;
 	ray->data = data;
 }

@@ -7,6 +7,8 @@ int **allocate_int_map(t_data *data)
 
 	data->map_width = (int)ft_strlen(data->map[0]);
 	data->map_height = ft_tab_len(data->map);
+    printf("width %d\n", data->map_width);
+    printf("height %d\n", data->map_height);
     int_map = (int **)malloc(data->map_height * sizeof(int *));
     if (!int_map)
     {
@@ -32,8 +34,8 @@ void set_player_position(t_ray *ray, int x, int y, char direction)
     // ray->pos_x = x + 0.5;
     // ray->pos_y = y + 0.5;
     
-    ray->pos_x = x;
-    ray->pos_y = y;
+    ray->pos_x = x + 0.5;
+    ray->pos_y = y + 0.5;
     if (direction == 'N')
     {
         ray->dir_x = 0;

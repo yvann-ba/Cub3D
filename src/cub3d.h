@@ -75,7 +75,6 @@ typedef struct s_ray
 	double	player_half_fov;
 	double	ray_increment_angle;
 	int		raycasting_precision;
-	int		**map;
 	double	player_angle;
 	double	pos_x;
 	double	pos_y;
