@@ -2,10 +2,17 @@
 
 int render_next_frame(t_ray *ray)
 {
-    int x = 0;
+    int x;
+    // int old_pos_x;
+    // int old_pos_y;
+    
+    x = 0;
+    // old_pos_x = ray->pos_x;
+    // old_pos_y = ray->pos_y;
 
     // Reset the image before each frame
-    mlx_clear_window(ray->mlx, ray->mlx_win);
+    // if (ray->pos_x !=)
+        mlx_clear_window(ray->mlx, ray->mlx_win);
 
     // Raycasting logic for each column of the screen
     while (x < ray->screen_width)
@@ -61,6 +68,7 @@ int render_next_frame(t_ray *ray)
                 ray->side = 1;
             }
             // If the ray hits a wall
+            //printf("\nmap: %d\n", ray->map[ray->map_x][ray->map_y]);
             if (ray->map[ray->map_x][ray->map_y] > 0)
                 ray->hit = 1;
         }
