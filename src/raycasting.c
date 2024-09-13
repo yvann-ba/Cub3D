@@ -12,7 +12,6 @@ int render_next_frame(t_ray *ray)
 
     // Reset the image before each frame
     // if (ray->pos_x !=)
-        mlx_clear_window(ray->mlx, ray->mlx_win);
 
     // Raycasting logic for each column of the screen
     while (x < ray->screen_width)
@@ -24,12 +23,12 @@ int render_next_frame(t_ray *ray)
         ray->map_y = (int)ray->pos_y;
 
         // Reset hit for each ray
-        ray->hit = 0;
 
         // Calculate delta_dist (for the distance between intersections)
         ray->delta_dist_x = (ray->ray_dir_x == 0) ? 1e30 : fabs(1 / ray->ray_dir_x);
         ray->delta_dist_y = (ray->ray_dir_y == 0) ? 1e30 : fabs(1 / ray->ray_dir_y);
 
+        ray->hit = 0;
         // Calculate initial distances (side_dist) and direction (step)
         if (ray->ray_dir_x < 0)
         {
@@ -75,9 +74,9 @@ int render_next_frame(t_ray *ray)
 
         // Calculate the projected distance of the wall on the camera plane
         if (ray->side == 0)
-            ray->perp_wall_dist = (ray->map_x - ray->pos_x + (1 - ray->step_x) / 2) / ray->ray_dir_x;
+            ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
         else
-            ray->perp_wall_dist = (ray->map_y - ray->pos_y + (1 - ray->step_y) / 2) / ray->ray_dir_y;
+            ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
 
         // Calculate the height of the line to draw on the screen
         ray->line_height = (int)(ray->screen_height / ray->perp_wall_dist);
@@ -106,9 +105,6 @@ int render_next_frame(t_ray *ray)
         x++;
     }
 
-    // Display the final image
-    mlx_put_image_to_window(ray->mlx, ray->mlx_win, ray->img, 0, 0);
-
     // Time management (for FPS)
     ray->old_time = ray->time;
     ray->time = get_current_time_millis();
@@ -119,7 +115,8 @@ int render_next_frame(t_ray *ray)
     {
         //printf("FPS: %f\n", 1.0 / ray->frame_time);
     }
-
+    mlx_put_image_to_window(ray->mlx, ray->mlx_win, ray->img, 0, 0);
+    
     // Calculate the movement and rotation speed based on the frame time
     ray->move_speed = ray->frame_time * 5.0;  // Constant in squares/second
     ray->rot_speed = ray->frame_time * 3.0;   // Constant in radians/second
