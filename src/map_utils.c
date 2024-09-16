@@ -34,8 +34,8 @@ void set_player_position(t_ray *ray, int x, int y, char direction)
     // ray->pos_x = x + 0.5;
     // ray->pos_y = y + 0.5;
     
-    ray->pos_x = x ;
-    ray->pos_y = y ;
+    ray->pos_x = x;
+    ray->pos_y = y;
     if (direction == 'N')
     {
         ray->dir_x = 0;

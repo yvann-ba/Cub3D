@@ -14,9 +14,16 @@ int render_next_frame(t_ray *ray)
     // if (ray->pos_x !=)
 
     // Raycasting logic for each column of the screen
-    while (x < ray->screen_width)
+    // ray->pos_x = 22;
+    // ray->pos_y = 12;
+    // ray->dir_y = 0;
+    // ray->dir_x = -1;
+    // ray->plane_x = 0;
+    // ray->plane_y = 0.66;
+
+    while (x < SCREEN_WIDTH)
     {
-        ray->camera_x = 2 * x / (double)ray->screen_width - 1;
+        ray->camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
         ray->ray_dir_x = ray->dir_x + ray->plane_x * ray->camera_x;
         ray->ray_dir_y = ray->dir_y + ray->plane_y * ray->camera_x;
         ray->map_x = (int)ray->pos_x;
@@ -79,15 +86,15 @@ int render_next_frame(t_ray *ray)
             ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
 
         // Calculate the height of the line to draw on the screen
-        ray->line_height = (int)(ray->screen_height / ray->perp_wall_dist);
+        ray->line_height = (int)(SCREEN_HEIGHT / ray->perp_wall_dist);
 
         // Calculate the start and end points to draw the line
-        ray->draw_start = -ray->line_height / 2 + ray->screen_height / 2;
+        ray->draw_start = -ray->line_height / 2 + SCREEN_HEIGHT / 2;
         if (ray->draw_start < 0)
             ray->draw_start = 0;
-        ray->draw_end = ray->line_height / 2 + ray->screen_height / 2;
-        if (ray->draw_end >= ray->screen_height)
-            ray->draw_end = ray->screen_height - 1;
+        ray->draw_end = ray->line_height / 2 + SCREEN_HEIGHT / 2;
+        if (ray->draw_end >= SCREEN_HEIGHT)
+            ray->draw_end = SCREEN_HEIGHT - 1;
 
         // Choose the color (simplified example: white wall)
         int color = (ray->int_map[ray->map_y][ray->map_x] == 1) ? 0xFFFFFF : 0x000000;
@@ -97,9 +104,19 @@ int render_next_frame(t_ray *ray)
             color = color / 2;
 
         // Draw the vertical line (wall)
-        for (int y = ray->draw_start; y < ray->draw_end; y++)
+        for (int q = ray->draw_start; q < ray->draw_end; q++)
         {
-            ray->addr[y * ray->line_length / 4 + x] = color;  // Write to the memory image
+            ray->addr[q * ray->line_length / 4 + x] = color;  // Write to the memory image
+        }
+        //printf("END %d\n", ray->draw_end);
+        //printf("STA %d\n", ray->draw_start);
+        for (int d = ray->draw_end; d < SCREEN_HEIGHT; d++)
+        {
+            ray->addr[d * ray->line_length / 4 + x] = 0xFF676FF;  // Write to the memory image
+        }
+        for (int b = ray->draw_start; b > 0; b--)
+        {
+            ray->addr[b * ray->line_length / 4 + x] = 0xFF151F;  // Write to the memory image
         }
 
         x++;
@@ -107,8 +124,12 @@ int render_next_frame(t_ray *ray)
 
     // Time management (for FPS)
     ray->old_time = ray->time;
+    //printf("OLD  %f\n", ray->old_time);
     ray->time = get_current_time_millis();
+    //printf("TIME %f\n", ray->time);
+
     ray->frame_time = (ray->time - ray->old_time) / 1000.0;
+    //printf("FRAME%f\n", ray->frame_time);
 
     // Avoid division by zero and display the FPS
     if (ray->frame_time > 0)

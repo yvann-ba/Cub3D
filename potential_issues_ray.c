@@ -10,3 +10,7 @@
     }
 
 see what mlx func use fro refresh the game, like what image put use windows or only image
+
+se deplacer dans le cub3d
+couleur diff cile sol
+bug vision
