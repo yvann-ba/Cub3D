@@ -9,6 +9,13 @@ int move_player(int keycode, t_ray *ray)
         if (ray->int_map[(int)(ray->pos_x)][(int)(ray->pos_y + ray->dir_y * ray->move_speed)] == 0)
             ray->pos_y += ray->dir_y * ray->move_speed;
     }
+    if (keycode == 97) // A
+    {
+        if (ray->int_map[(int)(ray->pos_x - ray->dir_x * ray->move_speed)][(int)(ray->pos_y)] == 0)
+            ray->pos_y += ray->dir_x * ray->move_speed;
+        if (ray->int_map[(int)(ray->pos_x)][(int)(ray->pos_y - ray->dir_y * ray->move_speed)] == 0)
+            ray->pos_x += ray->dir_y * ray->move_speed;
+    }
     if (keycode == 115) // S
     {
         if (ray->int_map[(int)(ray->pos_x - ray->dir_x * ray->move_speed)][(int)(ray->pos_y)] == 0)
@@ -16,23 +23,14 @@ int move_player(int keycode, t_ray *ray)
         if (ray->int_map[(int)(ray->pos_x)][(int)(ray->pos_y - ray->dir_y * ray->move_speed)] == 0)
             ray->pos_y -= ray->dir_y * ray->move_speed;
     }
-    if (keycode == 97) // A
+    if (keycode == 100) // D
     {
-        if (ray->int_map[(int)(ray->pos_y + ray->dir_y * ray->move_speed)][(int)(ray->pos_x)] == 0)
-        {
-            printf("prout");
-            ray->pos_y -= ray->dir_y * ray->move_speed;
-        }
-        if (ray->int_map[(int)(ray->pos_y)][(int)(ray->pos_x + ray->dir_x * ray->move_speed)] == 0)
-            ray->pos_x -= ray->dir_x * ray->move_speed;
+        if (ray->int_map[(int)(ray->pos_x + ray->dir_x * ray->move_speed)][(int)(ray->pos_y)] == 0)
+            ray->pos_y -= ray->dir_x * ray->move_speed;
+        if (ray->int_map[(int)(ray->pos_x)][(int)(ray->pos_y + ray->dir_y * ray->move_speed)] == 0)
+            ray->pos_x -= ray->dir_y * ray->move_speed;
     }
-    // if (keycode == 100) // D
-    // {
-    //     if (ray->int_map[(int)(ray->pos_x - ray->dir_x * ray->move_speed)][(int)(ray->pos_y)] == 0)
-    //         ray->pos_x -= ray->dir_x * ray->move_speed;
-    //     if (ray->int_map[(int)(ray->pos_x)][(int)(ray->pos_y - ray->dir_y * ray->move_speed)] == 0)
-    //         ray->pos_y -= ray->dir_y * ray->move_speed;
-    // }
+
     printf("Player moved to: (%f, %f)\n", ray->pos_x, ray->pos_y);
     return (0);
 }
