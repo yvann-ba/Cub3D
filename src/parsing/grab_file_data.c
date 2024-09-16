@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:06:18 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/16 08:53:25 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/16 10:12:45 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	grab_data(t_data *data)
 	if (c_map == NULL)
 		return ;
 	manage_utilization_flood_fill(data, c_map);
-	open_textures_paths(data);
+	open_textures_paths(data, c_map);
 	ft_free_tab(c_map);
 	return ;
 }
