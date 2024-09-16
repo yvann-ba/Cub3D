@@ -9,9 +9,6 @@
 #define SCREEN_HEIGHT 480
 #define TEX_WIDTH 64
 #define TEX_HEIGHT 64
-#define MAP_WIDTH 24
-#define MAP_HEIGHT 24
-
 //COLORS
 # define BLACK		"\033[0;30m"
 # define RED		"\033[0;31m"

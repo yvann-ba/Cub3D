@@ -75,7 +75,7 @@ int render_next_frame(t_ray *ray)
             }
             // If the ray hits a wall
             //printf("\nmap: %d\n", ray->map[ray->map_x][ray->map_y]);
-            if (ray->int_map[ray->map_y][ray->map_x] > 0)
+            if (ray->int_map[ray->map_x][ray->map_y] > 0)
                 ray->hit = 1;
         }
 
@@ -97,19 +97,21 @@ int render_next_frame(t_ray *ray)
             ray->draw_end = SCREEN_HEIGHT - 1;
 
         // Choose the color (simplified example: white wall)
-        int color = (ray->int_map[ray->map_y][ray->map_x] == 1) ? 0xFFFFFF : 0x000000;
+        int color = (ray->int_map[ray->map_x][ray->map_y] == 1) ? 0xFFFFFF : 0x000000;
 
         // Reduce brightness for side walls
         if (ray->side == 1)
             color = color / 2;
+        //printf("END %d\n", SCREEN_WIDTH);
 
+        //printf("END %d\n", ray->draw_end);
+        //printf("STA %d\n", ray->draw_start);
         // Draw the vertical line (wall)
         for (int q = ray->draw_start; q < ray->draw_end; q++)
         {
             ray->addr[q * ray->line_length / 4 + x] = color;  // Write to the memory image
         }
-        //printf("END %d\n", ray->draw_end);
-        //printf("STA %d\n", ray->draw_start);
+
         for (int d = ray->draw_end; d < SCREEN_HEIGHT; d++)
         {
             ray->addr[d * ray->line_length / 4 + x] = 0xFF676FF;  // Write to the memory image
