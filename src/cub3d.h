@@ -115,6 +115,7 @@ typedef struct s_data
 	void		*south;
 	void		*west;
 	void		*east;
+	int			size_image;
 	t_rgb		*f_rgb;
 	t_rgb		*c_rgb;
 	int			fd_map;
@@ -157,6 +158,9 @@ void    print_2d_array(char **array, int rows);
 //CLEAN_EXIT
 void    pars_clean_exit(t_data *data);
 void    pars_clean_return(t_data *data);
+
+//open_textures.c
+int		open_textures_paths(t_data *data);
 //--------------------------------------------LILIEN
 
 

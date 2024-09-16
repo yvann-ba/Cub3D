@@ -42,7 +42,6 @@ int	clean_close_windows(void *param)
 	t_data	*data;
 
 	data = (t_data *)param;
-	ft_printf(RED"~~~~~~~~~~~~%p~~~~~~~~~~~\n"WHITE, data->ray->mlx);
 	if (data->ray->img)
 		mlx_destroy_image(data->ray->mlx, data->ray->img);
 	if (data->ray->mlx)
@@ -50,9 +49,9 @@ int	clean_close_windows(void *param)
 	if (data->ray->mlx)
 		mlx_destroy_display(data->ray->mlx);
 	free(data->ray->mlx);
+	ft_free_tab_int(data->ray->int_map, data->map_height);
 	free(data->ray);
 	pars_clean_exit(data);
-	//exit(0);
 	return (0);
 }
 
