@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:06:18 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/16 10:12:45 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/16 14:01:38 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	grab_sprite_paths(t_data *data)
 		|| check_line(data->read_file, "WE ", 2, 3) != 0
 		|| check_line(data->read_file, "EA ", 3, 3) != 0)
 		{
-			ft_printf(RED "Error:\nFile format is incorect\n" WHITE);
+			ft_printf(RED "EEError:\nFile format is incorect\n" WHITE);
 			pars_clean_exit(data);
 		}
 	if	(check_path(data->read_file, 0) != 0
