@@ -3,24 +3,8 @@
 int render_next_frame(t_ray *ray)
 {
     int x;
-    // int old_pos_x;
-    // int old_pos_y;
-    
+
     x = 0;
-    // old_pos_x = ray->pos_x;
-    // old_pos_y = ray->pos_y;
-
-    // Reset the image before each frame
-    // if (ray->pos_x !=)
-
-    // Raycasting logic for each column of the screen
-    // ray->pos_x = 22;
-    // ray->pos_y = 12;
-    // ray->dir_y = 0;
-    // ray->dir_x = -1;
-    // ray->plane_x = 0;
-    // ray->plane_y = 0.66;
-
     while (x < SCREEN_WIDTH)
     {
         ray->camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
@@ -29,14 +13,15 @@ int render_next_frame(t_ray *ray)
         ray->map_x = (int)ray->pos_x;
         ray->map_y = (int)ray->pos_y;
 
-        // Reset hit for each ray
-
-		// Calculate delta_dist (for the distance between intersections)
-		ray->delta_dist_x = (ray->ray_dir_x == 0) ? 1e30 : fabs(1 / ray->ray_dir_x);
-		ray->delta_dist_y = (ray->ray_dir_y == 0) ? 1e30 : fabs(1 / ray->ray_dir_y);
-
+        if (ray->ray_dir_x == 0)
+		    ray->delta_dist_x = 1e30;
+        else   
+            ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
+        if (ray->ray_dir_y == 0)
+		    ray->delta_dist_y = 1e30;
+        else   
+            ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
         ray->hit = 0;
-        // Calculate initial distances (side_dist) and direction (step)
         if (ray->ray_dir_x < 0)
         {
             ray->step_x = -1;
@@ -57,8 +42,6 @@ int render_next_frame(t_ray *ray)
             ray->step_y = 1;
             ray->side_dist_y = (ray->map_y + 1.0 - ray->pos_y) * ray->delta_dist_y;
         }
-
-        // DDA algorithm to find where the ray hits a wall
         while (ray->hit == 0)
         {
             if (ray->side_dist_x < ray->side_dist_y)
@@ -73,76 +56,43 @@ int render_next_frame(t_ray *ray)
                 ray->map_y += ray->step_y;
                 ray->side = 1;
             }
-            // If the ray hits a wall
-            //printf("\nmap: %d\n", ray->map[ray->map_x][ray->map_y]);
             if (ray->int_map[ray->map_x][ray->map_y] > 0)
                 ray->hit = 1;
         }
-
-        // Calculate the projected distance of the wall on the camera plane
         if (ray->side == 0)
             ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
         else
             ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
 
-        // Calculate the height of the line to draw on the screen
         ray->line_height = (int)(SCREEN_HEIGHT / ray->perp_wall_dist);
-
-        // Calculate the start and end points to draw the line
         ray->draw_start = -ray->line_height / 2 + SCREEN_HEIGHT / 2;
         if (ray->draw_start < 0)
             ray->draw_start = 0;
         ray->draw_end = ray->line_height / 2 + SCREEN_HEIGHT / 2;
         if (ray->draw_end >= SCREEN_HEIGHT)
             ray->draw_end = SCREEN_HEIGHT - 1;
-
-        // Choose the color (simplified example: white wall)
-        int color = (ray->int_map[ray->map_x][ray->map_y] == 1) ? 0xFFFFFF : 0x000000;
-
-        // Reduce brightness for side walls
+        if (ray->int_map[ray->map_x][ray->map_y] == 1)
+            ray->wall_color = 0xFFFFFF;
         if (ray->side == 1)
-            color = color / 2;
-        //printf("END %d\n", SCREEN_WIDTH);
-
-        //printf("END %d\n", ray->draw_end);
-        //printf("STA %d\n", ray->draw_start);
-        // Draw the vertical line (wall)
+            ray->wall_color = ray->wall_color / 2;
         for (int q = ray->draw_start; q < ray->draw_end; q++)
-        {
-            ray->addr[q * ray->line_length / 4 + x] = color;  // Write to the memory image
-        }
+            ray->addr[q * ray->line_length / 4 + x] = ray->wall_color;
 
+        ray->ceilling_color = 0xFF676FF;
+        ray->floor_color = 0xFF151F;
         for (int d = ray->draw_end; d < SCREEN_HEIGHT; d++)
-        {
-            ray->addr[d * ray->line_length / 4 + x] = 0xFF676FF;  // Write to the memory image
-        }
+            ray->addr[d * ray->line_length / 4 + x] = ray->ceilling_color;
         for (int b = ray->draw_start; b > 0; b--)
-        {
-            ray->addr[b * ray->line_length / 4 + x] = 0xFF151F;  // Write to the memory image
-        }
-
+            ray->addr[b * ray->line_length / 4 + x] = ray->floor_color;
 		x++;
 	}
-
-    // Time management (for FPS)
     ray->old_time = ray->time;
-    //printf("OLD  %f\n", ray->old_time);
     ray->time = get_current_time_millis();
-    //printf("TIME %f\n", ray->time);
-
     ray->frame_time = (ray->time - ray->old_time) / 1000.0;
-    //printf("FRAME%f\n", ray->frame_time);
-
-    // Avoid division by zero and display the FPS
     if (ray->frame_time > 0)
-    {
         //printf("FPS: %f\n", 1.0 / ray->frame_time);
-    }
     mlx_put_image_to_window(ray->mlx, ray->mlx_win, ray->img, 0, 0);
-    
-    // Calculate the movement and rotation speed based on the frame time
-    ray->move_speed = ray->frame_time * 5.0;  // Constant in squares/second
-    ray->rot_speed = ray->frame_time * 3.0;   // Constant in radians/second
-
+    ray->move_speed = ray->frame_time * 5.0;
+    ray->rot_speed = ray->frame_time * 3.0;
 	return (0);
 }

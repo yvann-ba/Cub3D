@@ -62,6 +62,9 @@ typedef struct s_rgb
 // RAYCASTING & GRAPHICS
 typedef struct s_ray
 {
+	int		wall_color;
+	int		floor_color;
+	int		ceilling_color;
 	void        *mlx;
 	void        *mlx_win;
 	void        *img;
@@ -69,7 +72,6 @@ typedef struct s_ray
 	int         bpp;
 	int         line_length;
 	int         endian;
-
 	int     **int_map;
 	int     screen_width;
 	int     screen_height;
