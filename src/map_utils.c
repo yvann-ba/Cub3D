@@ -30,7 +30,7 @@ int **allocate_int_map(t_data *data)
 	int **int_map;
 	int i;
 
-	data->map_width = find_max_lenght(data->map);
+	data->map_width = find_max_lenght(data->map) + 1;
 	if (!data->map_width)
 		pars_clean_exit(data);
 	data->map_height = ft_tab_len(data->map);
@@ -96,12 +96,14 @@ void parse_map(t_ray *ray, t_data *data, int **int_map)
 {
 	int y;
 	int x;
+	int	size_line;
 
 	y = 0;
 	while (y < data->map_height)
 	{
 		x = 0;
-		while (x < (int)ft_strlen(data->map[y]))
+		size_line = (int)ft_strlen(data->map[y]);
+		while (x < size_line)
 		{
 			if (data->map[y][x] == '1')
 				int_map[y][x] = 1;
