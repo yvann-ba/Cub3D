@@ -71,7 +71,6 @@ int	clean_close_windows(void *param)
 		mlx_destroy_display(data->ray->mlx);
 	ft_free_tab_int(data->ray->int_map, data->map_height);
 	free(data->ray->mlx);
-	ft_free_tab_int(data->ray->int_map, data->map_height);
 	free(data->ray);
 	pars_clean_exit(data);
 	return (0);
