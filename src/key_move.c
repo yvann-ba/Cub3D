@@ -12,7 +12,7 @@ int move_player(int keycode, t_ray *ray)
     if (keycode == 97) // A
     {
         if (ray->int_map[(int)(ray->pos_x - ray->dir_x * ray->move_speed)][(int)(ray->pos_y)] == 0)
-            ray->pos_y += ray->dir_x * ray->move_speed;
+            ray->pos_y -= ray->dir_x * ray->move_speed;
         if (ray->int_map[(int)(ray->pos_x)][(int)(ray->pos_y - ray->dir_y * ray->move_speed)] == 0)
             ray->pos_x += ray->dir_y * ray->move_speed;
     }
@@ -26,7 +26,7 @@ int move_player(int keycode, t_ray *ray)
     if (keycode == 100) // D
     {
         if (ray->int_map[(int)(ray->pos_x + ray->dir_x * ray->move_speed)][(int)(ray->pos_y)] == 0)
-            ray->pos_y -= ray->dir_x * ray->move_speed;
+            ray->pos_y += ray->dir_x * ray->move_speed;
         if (ray->int_map[(int)(ray->pos_x)][(int)(ray->pos_y + ray->dir_y * ray->move_speed)] == 0)
             ray->pos_x -= ray->dir_y * ray->move_speed;
     }
