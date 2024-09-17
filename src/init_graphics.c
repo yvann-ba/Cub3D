@@ -54,7 +54,7 @@ void    init_ray(t_ray *ray, t_data *data, int **int_map)
 	parse_map(ray, data, int_map);
 	ray->data = data;
 	data->ray = ray;
-	ray->map = int_map;
+	ray->int_map = int_map;
 }
 
 int	clean_close_windows(void *param)

@@ -61,7 +61,7 @@ int render_next_frame(t_ray *ray)
 				ray->side = 1;
 			}
 			// If the ray hits a wall
-			if (ray->map[ray->map_x][ray->map_y] > 0)
+			if (ray->int_map[ray->map_x][ray->map_y] > 0)
 				ray->hit = 1;
 		}
 
@@ -83,7 +83,7 @@ int render_next_frame(t_ray *ray)
 			ray->draw_end = ray->screen_height - 1;
 
 		// Choose the color (simplified example: white wall)
-		int color = (ray->map[ray->map_x][ray->map_y] == 1) ? 0xFFFFFF : 0x000000;
+		int color = (ray->int_map[ray->map_x][ray->map_y] == 1) ? 0xFFFFFF : 0x000000;
 
 		// Reduce brightness for side walls
 		if (ray->side == 1)
