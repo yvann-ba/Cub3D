@@ -85,14 +85,14 @@ int setup_mlx(t_ray *ray)
 		return (1);
 	}
 	//paths_to_mlx_image(ray->data);
-	ray->mlx_win = mlx_new_window(ray->mlx, ray->screen_width, ray->screen_height, "Cub3D");
+	ray->mlx_win = mlx_new_window(ray->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D");
 	if (!ray->mlx_win)
 	{
 		free(ray->mlx_win);
 		printf("Error:mlx_new_window() failed\n");
 		return(1);
 	}
-	ray->img = mlx_new_image(ray->mlx, ray->screen_width, ray->screen_height);
+	ray->img = mlx_new_image(ray->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	ray->addr = (int *)mlx_get_data_addr(ray->img, &ray->bpp, &ray->line_length, &ray->endian);
 
 	mlx_hook(ray->mlx_win, 2, 1L << 0, key_hook, ray);
