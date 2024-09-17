@@ -188,6 +188,8 @@ void	all_clean_exit(t_data *data);
 
 //RAYCASTING
 int render_next_frame(t_ray *ray);
+void put_ray_colors(t_ray *ray, int *x);
+
 
 //RAY_UTILS
 long get_current_time_millis(void);
