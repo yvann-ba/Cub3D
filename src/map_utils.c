@@ -1,31 +1,5 @@
 #include "cub3d.h"
 
-// int **allocate_int_map(t_data *data)
-// {
-//     int **int_map;
-//     int i;
-
-// 	data->map_width = (int)ft_strlen(data->map[0]);
-// 	data->map_height = ft_tab_len(data->map);
-//     int_map = (int **)malloc(data->map_height * sizeof(int *));
-//     if (!int_map)
-//     {
-//         ft_printf("Error\nmalloc() failed\n", 2);
-//         exit(1);
-//     }
-//     i = 0;
-//     while (i < data->map_height)
-//     {
-//         int_map[i] = (int *)malloc(data->map_width * sizeof(int));
-//         if (!int_map[i])
-//         {
-//             ft_printf("Error\nmalloc() failed\n", 2);
-//             exit(1);
-//         }
-//         i++;
-//     }
-//     return (int_map);
-// }
 
 int	find_max_lenght(char **map)
 {
