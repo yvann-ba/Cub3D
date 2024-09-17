@@ -56,37 +56,40 @@ int **allocate_int_map(t_data *data)
 
 void set_player_position(t_ray *ray, int x, int y, char direction)
 {
-	ray->pos_x = x + 0.5;
-	ray->pos_y = y + 0.5;
-	if (direction == 'N')
-	{
-		ray->dir_x = 0;
-		ray->dir_y = -1;
-		ray->plane_x = 0.66;
-		ray->plane_y = 0;
-	}
-	else if (direction == 'S')
-	{
-		ray->dir_x = 0;
-		ray->dir_y = 1;
-		ray->plane_x = -0.66;
-		ray->plane_y = 0;
-	}
-	else if (direction == 'E')
-	{
-		ray->dir_x = 1;
-		ray->dir_y = 0;
-		ray->plane_x = 0;
-		ray->plane_y = 0.66;
-	}
-	else if (direction == 'W')
-	{
-		ray->dir_x = -1;
-		ray->dir_y = 0;
-		ray->plane_x = 0;
-		ray->plane_y = -0.66;
-	}
-	printf("Player position set to: (%f, %f)\n", ray->pos_x, ray->pos_y);
+    // ray->pos_x = x + 0.5;
+    // ray->pos_y = y + 0.5;
+    
+    ray->pos_x = x;
+    ray->pos_y = y;
+    if (direction == 'N')
+    {
+        ray->dir_x = 0;
+        ray->dir_y = -1;
+        ray->plane_x = 0.66;
+        ray->plane_y = 0;
+    }
+    else if (direction == 'S')
+    {
+        ray->dir_x = 0;
+        ray->dir_y = 1;
+        ray->plane_x = -0.66;
+        ray->plane_y = 0;
+    }
+    else if (direction == 'E')
+    {
+        ray->dir_x = 1;
+        ray->dir_y = 0;
+        ray->plane_x = 0;
+        ray->plane_y = 0.66;
+    }
+    else if (direction == 'W')
+    {
+        ray->dir_x = -1;
+        ray->dir_y = 0;
+        ray->plane_x = 0;
+        ray->plane_y = -0.66;
+    }
+    printf("Player position set to: (%f, %f)\n", ray->pos_x, ray->pos_y);
 }
 
 void parse_map(t_ray *ray, t_data *data, int **int_map)
