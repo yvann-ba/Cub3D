@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:06:18 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/10 13:18:20 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/16 14:01:38 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	grab_sprite_paths(t_data *data)
 		|| check_line(data->read_file, "WE ", 2, 3) != 0
 		|| check_line(data->read_file, "EA ", 3, 3) != 0)
 		{
-			ft_printf(RED "Error:\nFile format is incorect\n" WHITE);
+			ft_printf(RED "EEError:\nFile format is incorect\n" WHITE);
 			pars_clean_exit(data);
 		}
 	if	(check_path(data->read_file, 0) != 0
@@ -108,9 +108,8 @@ void	grab_data(t_data *data)
 	c_map = ft_copy_tab(data->map, ft_tab_len(data->map));
 	if (c_map == NULL)
 		return ;
-	//print_2d_array(data->map, 15);
 	manage_utilization_flood_fill(data, c_map);
-	//print_2d_array(c_map, 15);
+	open_textures_paths(data, c_map);
 	ft_free_tab(c_map);
 	return ;
 }

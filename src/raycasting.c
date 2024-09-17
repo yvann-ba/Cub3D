@@ -31,9 +31,9 @@ int render_next_frame(t_ray *ray)
 
         // Reset hit for each ray
 
-        // Calculate delta_dist (for the distance between intersections)
-        ray->delta_dist_x = (ray->ray_dir_x == 0) ? 1e30 : fabs(1 / ray->ray_dir_x);
-        ray->delta_dist_y = (ray->ray_dir_y == 0) ? 1e30 : fabs(1 / ray->ray_dir_y);
+		// Calculate delta_dist (for the distance between intersections)
+		ray->delta_dist_x = (ray->ray_dir_x == 0) ? 1e30 : fabs(1 / ray->ray_dir_x);
+		ray->delta_dist_y = (ray->ray_dir_y == 0) ? 1e30 : fabs(1 / ray->ray_dir_y);
 
         ray->hit = 0;
         // Calculate initial distances (side_dist) and direction (step)
@@ -121,8 +121,8 @@ int render_next_frame(t_ray *ray)
             ray->addr[b * ray->line_length / 4 + x] = 0xFF151F;  // Write to the memory image
         }
 
-        x++;
-    }
+		x++;
+	}
 
     // Time management (for FPS)
     ray->old_time = ray->time;
@@ -144,5 +144,5 @@ int render_next_frame(t_ray *ray)
     ray->move_speed = ray->frame_time * 5.0;  // Constant in squares/second
     ray->rot_speed = ray->frame_time * 3.0;   // Constant in radians/second
 
-    return (0);
+	return (0);
 }

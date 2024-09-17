@@ -119,6 +119,7 @@ typedef struct s_data
 	void		*south;
 	void		*west;
 	void		*east;
+	int			size_image;
 	t_rgb		*f_rgb;
 	t_rgb		*c_rgb;
 	int			fd_map;
@@ -161,6 +162,10 @@ void    print_2d_array(char **array, int rows);
 //CLEAN_EXIT
 void    pars_clean_exit(t_data *data);
 void    pars_clean_return(t_data *data);
+int		clean_close_windows(void *param);
+
+//open_textures.c
+int		open_textures_paths(t_data *data, char **c_map);
 //--------------------------------------------LILIEN
 
 
@@ -171,10 +176,13 @@ void	init_ray_values(t_ray *ray);
 void	init_ray(t_ray *ray, t_data *data, int **int_map);
 int		setup_mlx(t_ray *ray);
 int		clean_close_windows(void *param);
+void	paths_to_mlx_image(t_data *data);
 
 //CLEAN_EXIT
 void    pars_clean_exit(t_data *data);
 void    pars_clean_return(t_data *data);
+void	free_mlx_images(t_data *data);
+void	all_clean_exit(t_data *data);
 
 //RAYCASTING
 int render_next_frame(t_ray *ray);

@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 09:42:57 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/10 13:18:20 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/16 14:01:58 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	check_and_store_calor_values(char **f_tab, char ** c_tab, t_data *da
 	tab_num[5] = ft_atoi_base(c_tab[2], "0123456789");
 	if (is_in_rang(tab_num, 0, 255) == 1)
 	{
-		ft_putstr_fd(RED "Error:\nFile format is incorect:" WHITE" rgb values must be between 0 and 255\n", 2);
+		ft_putstr_fd(RED "EEError:\nFile format is incorect:" WHITE" rgb values must be between 0 and 255\n", 2);
 		ft_free_tab(f_tab);
 		ft_free_tab(c_tab);
 		pars_clean_exit(data);
