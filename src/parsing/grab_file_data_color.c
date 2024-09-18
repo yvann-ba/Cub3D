@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 09:42:57 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/16 14:01:58 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/18 10:56:42 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,12 @@ void	grab_color(t_data *data)
 			pars_clean_exit(data);
 		}
 	take_colors_value(data->read_file);
+	printf(BLUE"color->floor : %d, %d, %d\n", data->f_rgb->red, data->f_rgb->green, data->f_rgb->blue);
+	printf(BLUE"color->ceil : %d, %d, %d\n"WHITE, data->c_rgb->red, data->c_rgb->green, data->c_rgb->blue);
+	unsigned long one = create_rgb(data->f_rgb->red, data->f_rgb->green, data->f_rgb->blue);
+	unsigned long two = create_rgb(data->c_rgb->red, data->c_rgb->green, data->c_rgb->blue);
+	printf(YELLOW"floor--> %lu\n"WHITE, one);
+	printf(YELLOW"floor--> %lu\n"WHITE, two);
+	printf(CYAN"ressssult~~~~~~~~~~~%s\n", convert_rgb_to_hex(data->f_rgb->red, data->f_rgb->green, data->f_rgb->blue));
 	return ;
 }
