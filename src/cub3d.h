@@ -122,8 +122,10 @@ typedef struct s_data
 	void		*west;
 	void		*east;
 	int			size_image;
-	t_rgb		*f_rgb;
-	t_rgb		*c_rgb;
+	t_rgb		*f_int_rgb;
+	t_rgb		*c_int_rgb;
+	char		*f_hex_rgb;
+	char		*c_hex_rgb;
 	int			fd_map;
 	char**		map;
 	int			map_width;
@@ -208,8 +210,6 @@ int 	move_player(int keycode, t_ray *ray);
 int 	rotate_player(int keycode, t_ray *ray);
 int		key_hook(int keycode, t_ray *ray);
 
-//UTILS_GRAPHIC
-unsigned long	create_rgb(int r, int g, int b);
 
 //--------------------------------------------YVANN
 

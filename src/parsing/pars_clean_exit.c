@@ -52,10 +52,10 @@ void	pars_clean_exit(t_data *data)
 		free(data->read_file->p_east);
 	if (data->read_file)
 		free(data->read_file);
-	if (data->c_rgb)
-		free(data->c_rgb);
-	if (data->f_rgb)
-		free(data->f_rgb);
+	if (data->c_int_rgb)
+		free(data->c_int_rgb);
+	if (data->f_int_rgb)
+		free(data->f_int_rgb);
 	if (data->map)
 		ft_free_tab(data->map);
 	if (data)
@@ -79,10 +79,10 @@ void    pars_clean_return(t_data *data)
 		free(data->read_file->p_east);
 	if (data->read_file)
 		free(data->read_file);
-	if (data->c_rgb)
-		free(data->c_rgb);
-	if (data->f_rgb)
-		free(data->f_rgb);
+	if (data->c_int_rgb)
+		free(data->c_int_rgb);
+	if (data->f_int_rgb)
+		free(data->f_int_rgb);
 	if (data->map)
 		ft_free_tab(data->map);
 	if (data)

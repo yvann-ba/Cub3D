@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 09:27:09 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/18 11:08:54 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/18 11:16:52 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,25 @@ char	*int_to_hex(int	n)
 char	*convert_rgb_to_hex(int R, int G, int B)
 {
 	char	*hex_code;
+	char	*red;
+	char	*green;
+	char	*blue;
 
 	if ((R >= 0 && R <= 255)
 		&& (G >= 0 && G <= 255)
 		&& (B >= 0 && B <= 255))
 	{
+		red = int_to_hex(R);
+		green = int_to_hex(G);
+		blue = int_to_hex(B);
 		hex_code = ft_calloc(17,1);
 		append_char(hex_code, '#');
-		ft_strcat(hex_code, int_to_hex(R));
-		ft_strcat(hex_code, int_to_hex(G));
-		ft_strcat(hex_code, int_to_hex(B));
+		ft_strcat(hex_code, red);
+		ft_strcat(hex_code, green);
+		ft_strcat(hex_code, blue);
+		free(red);
+		free(green);
+		free(blue);
 		return (hex_code);
 	}
 	else
