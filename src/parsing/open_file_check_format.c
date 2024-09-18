@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 09:37:56 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/06 09:42:22 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/18 11:18:47 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int    open_file(char *file, t_data *data)
 	{
 		printf(RED"Error:\nFailed to open file:"
 			WHITE" file must have .cub extenssion\n");
-		free(data->c_rgb);
-		free(data->f_rgb);
+		free(data->c_int_rgb);
+		free(data->f_int_rgb);
 		free(data);
 		exit(0);
 	}
@@ -46,8 +46,8 @@ int    open_file(char *file, t_data *data)
 	{
 		printf(RED"Error:\nFailed to open file:"
 			WHITE" %s\n", strerror(errno));
-		free(data->c_rgb);
-		free(data->f_rgb);
+		free(data->c_int_rgb);
+		free(data->f_int_rgb);
 		free(data);
 		exit (0);
 	}

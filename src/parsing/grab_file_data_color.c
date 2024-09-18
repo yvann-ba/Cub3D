@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 09:42:57 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/18 10:56:42 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/18 11:24:28 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ static void	check_and_store_calor_values(char **f_tab, char ** c_tab, t_data *da
 	}
 	ft_free_tab(f_tab);
 	ft_free_tab(c_tab);
-	data->f_rgb->red = tab_num[0];
-	data->f_rgb->green = tab_num[1];
-	data->f_rgb->blue = tab_num[2];
-	data->c_rgb->red = tab_num[3];
-	data->c_rgb->green = tab_num[4];
-	data->c_rgb->blue = tab_num[5];
+	data->f_int_rgb->red = tab_num[0];
+	data->f_int_rgb->green = tab_num[1];
+	data->f_int_rgb->blue = tab_num[2];
+	data->c_int_rgb->red = tab_num[3];
+	data->c_int_rgb->green = tab_num[4];
+	data->c_int_rgb->blue = tab_num[5];
 }
 
 static int	take_colors_value(t_read_file *rf)
@@ -100,12 +100,12 @@ void	grab_color(t_data *data)
 			pars_clean_exit(data);
 		}
 	take_colors_value(data->read_file);
-	printf(BLUE"color->floor : %d, %d, %d\n", data->f_rgb->red, data->f_rgb->green, data->f_rgb->blue);
-	printf(BLUE"color->ceil : %d, %d, %d\n"WHITE, data->c_rgb->red, data->c_rgb->green, data->c_rgb->blue);
-	unsigned long one = create_rgb(data->f_rgb->red, data->f_rgb->green, data->f_rgb->blue);
-	unsigned long two = create_rgb(data->c_rgb->red, data->c_rgb->green, data->c_rgb->blue);
-	printf(YELLOW"floor--> %lu\n"WHITE, one);
-	printf(YELLOW"floor--> %lu\n"WHITE, two);
-	printf(CYAN"ressssult~~~~~~~~~~~%s\n", convert_rgb_to_hex(data->f_rgb->red, data->f_rgb->green, data->f_rgb->blue));
+	printf(MAGENTA"color->floor : %d, %d, %d\n", data->f_int_rgb->red, data->f_int_rgb->green, data->f_int_rgb->blue);
+	printf(MAGENTA"color->ceiling : %d, %d, %d\n", data->c_int_rgb->red, data->c_int_rgb->green, data->c_int_rgb->blue);
+	data->f_hex_rgb = convert_rgb_to_hex(data->f_int_rgb->red, data->f_int_rgb->green, data->f_int_rgb->blue);
+	printf("\n");
+	data->c_hex_rgb = convert_rgb_to_hex(data->c_int_rgb->red, data->c_int_rgb->green, data->c_int_rgb->blue);
+	printf(BLUE"Finaly floor : %s\n", data->f_hex_rgb);
+	printf(BLUE"Finaly ceiling : %s\n", data->c_hex_rgb);
 	return ;
 }

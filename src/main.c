@@ -2,16 +2,16 @@
 
 static void	init_data(t_data *data)
 {
-	data->f_rgb = ft_calloc(1, sizeof(t_rgb));
-	data->c_rgb = ft_calloc(1, sizeof(t_rgb));
-	if (data->f_rgb == NULL || data->c_rgb == NULL)
+	data->f_int_rgb = ft_calloc(1, sizeof(t_rgb));
+	data->c_int_rgb = ft_calloc(1, sizeof(t_rgb));
+	if (data->f_int_rgb == NULL || data->c_int_rgb == NULL)
 		return ;
-	data->f_rgb->red = 0;
-	data->f_rgb->green = 0;
-	data->f_rgb->blue = 0;
-	data->c_rgb->red = 0;
-	data->c_rgb->green = 0;
-	data->c_rgb->blue = 0;
+	data->f_int_rgb->red = 0;
+	data->f_int_rgb->green = 0;
+	data->f_int_rgb->blue = 0;
+	data->c_int_rgb->red = 0;
+	data->c_int_rgb->green = 0;
+	data->c_int_rgb->blue = 0;
 	data->map = NULL;
 }
 
