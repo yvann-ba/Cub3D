@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:06:18 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/16 14:01:38 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/19 11:00:54 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,16 @@
 
 int	check_line(t_read_file *rf, char *id, int num_line, int value_check)
 {
-	int	result;
+	int		result;
 
 	result = 0;
 	if (rf == NULL || ft_strlen(id) < (size_t)value_check)
-		return (-1);
+		return (-2);
 	result = ft_strncmp(rf->tab_content[num_line], id, value_check);
-	
 	return (result);
 }
 
-static int	check_path(t_read_file *rf, int num_line)
+static int	check_path(t_read_file *rf, int num_line, char *id)
 {
 	char	*str;
 
@@ -38,37 +37,94 @@ static int	check_path(t_read_file *rf, int num_line)
 		free(str);
 		return (-1);
 	}
-	if (num_line == 0)
+	if (ft_strcmp(id, "NO") == 1)
+	{
+		printf(RED"%d - NO---> %p\n"WHITE, num_line, rf->p_north);
+		if (rf->p_north != NULL)
+			return (-1);
 		rf->p_north = str;
-	else if (num_line == 1)
+	}
+	else if (ft_strcmp(id, "SO") == 1)
+	{
+		printf(RED"%d - SO---> %p\n"WHITE, num_line, rf->p_south);
+		if (rf->p_south != NULL)
+			return (-1);
 		rf->p_south = str;
-	else if (num_line == 2)
+	}
+	else if (ft_strcmp(id, "WE") == 1)
+	{
+		printf(RED"%d - WE---> %p\n"WHITE, num_line, rf->p_west);
+	if (rf->p_west != NULL)
+			return (-1);
 		rf->p_west = str;
-	else
+	}
+	else if (ft_strcmp(id, "EA") == 1)
+	{
+		printf(RED"%d - EA---> %p\n"WHITE, num_line, rf->p_east);
+		if (rf->p_east != NULL)
+			return (-1);
 		rf->p_east = str;
+	}
+	return (0);
+}
+
+// static void	grab_sprite_paths(t_data *data)
+// {
+// 	if (data->read_file == NULL)
+// 		pars_clean_exit(data);
+// 	if (check_line(data->read_file, "NO ", 0, 3) != 0
+// 		|| check_line(data->read_file, "SO ", 1, 3) != 0
+// 		|| check_line(data->read_file, "WE ", 2, 3) != 0
+// 		|| check_line(data->read_file, "EA ", 3, 3) != 0)
+// 		{
+// 			ft_printf(RED "EEError:\nFile format is incorect\n" WHITE);
+// 			pars_clean_exit(data);
+// 		}
+// 	if	(check_path(data->read_file, 0) != 0
+// 		|| check_path(data->read_file, 1) != 0
+// 		|| check_path(data->read_file, 2) != 0
+// 		|| check_path(data->read_file, 3) != 0)
+// 		{
+// 			ft_printf(RED "Error:\nFile not have the extenssion .xpm\n" WHITE);
+// 			pars_clean_exit(data);
+// 		}
+// 		return ;
+// }
+
+static int	valid_value(t_data *data, char *id, int i)
+{
+	if (ft_strstr(data->read_file->tab_content[i], id))
+	{
+		printf(GREEN"ID ==== %s\n", id);
+		if (check_line(data->read_file, id, i, 2) != 0)
+		{
+			ft_printf(RED "EEError:\nFile format is incorect\n" WHITE);
+			pars_clean_exit(data);
+		}
+		if (check_path(data->read_file, i, id) != 0)
+		{
+			ft_printf(RED "Error:\nFile not have the extenssion .xpm\n" WHITE);
+			pars_clean_exit(data);
+		}
+	}
 	return (0);
 }
 
 static void	grab_sprite_paths(t_data *data)
 {
+	int	i;
+
+	i = 0;
 	if (data->read_file == NULL)
 		pars_clean_exit(data);
-	if (check_line(data->read_file, "NO ", 0, 3) != 0
-		|| check_line(data->read_file, "SO ", 1, 3) != 0
-		|| check_line(data->read_file, "WE ", 2, 3) != 0
-		|| check_line(data->read_file, "EA ", 3, 3) != 0)
-		{
-			ft_printf(RED "EEError:\nFile format is incorect\n" WHITE);
-			pars_clean_exit(data);
-		}
-	if	(check_path(data->read_file, 0) != 0
-		|| check_path(data->read_file, 1) != 0
-		|| check_path(data->read_file, 2) != 0
-		|| check_path(data->read_file, 3) != 0)
-		{
-			ft_printf(RED "Error:\nFile not have the extenssion .xpm\n" WHITE);
-			pars_clean_exit(data);
-		}
+	while(data->read_file->tab_content[i])
+	{
+		valid_value(data, "NO", i);
+		valid_value(data, "SO", i);
+		valid_value(data, "WE", i);
+		valid_value(data, "EA", i);
+		i++;
+	}
 		return ;
 }
 

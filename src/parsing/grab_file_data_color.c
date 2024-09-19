@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 09:42:57 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/18 11:24:28 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/19 11:07:18 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	check_and_store_calor_values(char **f_tab, char ** c_tab, t_data *da
 	data->c_int_rgb->blue = tab_num[5];
 }
 
-static int	take_colors_value(t_read_file *rf)
+static int	take_colors_value(t_read_file *rf, int p_floor, int p_ceiling)
 {
 	char	*f_str;
 	char	*c_str;
@@ -64,8 +64,8 @@ static int	take_colors_value(t_read_file *rf)
 
 	if (!rf)
 		return (-1);
-	f_str = ft_substr(rf->tab_content[4], 2, ft_strlen(rf->tab_content[4]) -2);
-	c_str = ft_substr(rf->tab_content[5], 2, ft_strlen(rf->tab_content[5]) -2);
+	f_str = ft_substr(rf->tab_content[p_floor], 2, ft_strlen(rf->tab_content[p_floor]) -2);
+	c_str = ft_substr(rf->tab_content[p_ceiling], 2, ft_strlen(rf->tab_content[p_ceiling]) -2);
 	if (c_str == NULL || f_str == NULL)
 		return (-1);
 	f_tab = ft_split(f_str, ',');
@@ -89,23 +89,70 @@ static int	take_colors_value(t_read_file *rf)
 	return (0);
 }
 
-void	grab_color(t_data *data)
+// void	grab_color(t_data *data)
+// {
+// 	if (!data)
+// 		return ;
+// 	if (check_line(data->read_file, "F ", 4, 2) != 0
+// 		|| check_line(data->read_file, "C ", 5, 2) != 0)
+// 		{
+// 			ft_putstr_fd(RED "Error:\nFile format is incorect\n" WHITE, 2);
+// 			pars_clean_exit(data);
+// 		}
+// 	take_colors_value(data->read_file);
+// 	printf(MAGENTA"color->floor : %d, %d, %d\n", data->f_int_rgb->red, data->f_int_rgb->green, data->f_int_rgb->blue);
+// 	printf(MAGENTA"color->ceiling : %d, %d, %d\n", data->c_int_rgb->red, data->c_int_rgb->green, data->c_int_rgb->blue);
+// 	data->f_hex_rgb = convert_rgb_to_hex(data->f_int_rgb->red, data->f_int_rgb->green, data->f_int_rgb->blue);
+// 	printf("\n");
+// 	data->c_hex_rgb = convert_rgb_to_hex(data->c_int_rgb->red, data->c_int_rgb->green, data->c_int_rgb->blue);
+// 	printf(BLUE"Finaly floor : %s\n", data->f_hex_rgb);
+// 	printf(BLUE"Finaly ceiling : %s\n", data->c_hex_rgb);
+// 	return ;
+// }
+
+static int	search_id_color(t_data *data, char *id)
 {
-	if (!data)
-		return ;
-	if (check_line(data->read_file, "F ", 4, 2) != 0
-		|| check_line(data->read_file, "C ", 5, 2) != 0)
+	int	i;
+	int	p_color;
+
+	i = 0;
+	p_color = -1;
+	while (data->read_file->tab_content[i])
+	{
+		if (check_line(data->read_file, id, i, 2) == -2)
 		{
 			ft_putstr_fd(RED "Error:\nFile format is incorect\n" WHITE, 2);
 			pars_clean_exit(data);
 		}
-	take_colors_value(data->read_file);
-	printf(MAGENTA"color->floor : %d, %d, %d\n", data->f_int_rgb->red, data->f_int_rgb->green, data->f_int_rgb->blue);
-	printf(MAGENTA"color->ceiling : %d, %d, %d\n", data->c_int_rgb->red, data->c_int_rgb->green, data->c_int_rgb->blue);
+		else if (check_line(data->read_file, id, i, 2) == 0)
+		{
+			p_color = i;
+			break ;
+		}
+
+		i++;
+	}
+	return (p_color);
+}
+
+void	grab_color(t_data *data)
+{
+	if (!data)
+		return ;
+	int p_floor = search_id_color(data, "F ");
+	int p_ceiling = search_id_color(data, "C ");
+	if (p_floor == -1 || p_ceiling == -1)
+	{
+		ft_putstr_fd(RED "Error:\nFile format is incorect\n" WHITE, 2);
+		pars_clean_exit(data);
+	}
+	take_colors_value(data->read_file, p_floor, p_ceiling);
+	// printf(MAGENTA"color->floor : %d, %d, %d\n", data->f_int_rgb->red, data->f_int_rgb->green, data->f_int_rgb->blue);
+	// printf(MAGENTA"color->ceiling : %d, %d, %d\n", data->c_int_rgb->red, data->c_int_rgb->green, data->c_int_rgb->blue);
 	data->f_hex_rgb = convert_rgb_to_hex(data->f_int_rgb->red, data->f_int_rgb->green, data->f_int_rgb->blue);
-	printf("\n");
+	//printf("\n");
 	data->c_hex_rgb = convert_rgb_to_hex(data->c_int_rgb->red, data->c_int_rgb->green, data->c_int_rgb->blue);
-	printf(BLUE"Finaly floor : %s\n", data->f_hex_rgb);
-	printf(BLUE"Finaly ceiling : %s\n", data->c_hex_rgb);
+	// printf(BLUE"Finaly floor : %s\n", data->f_hex_rgb);
+	// printf(BLUE"Finaly ceiling : %s\n", data->c_hex_rgb);
 	return ;
 }
