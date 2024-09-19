@@ -3,8 +3,22 @@
 int render_next_frame(t_ray *ray)
 {
     int x;
-
+    // int i;
     x = 0;
+    // i = 0;
+    // unsigned int **buffer;
+
+    // buffer = (unsigned int **)malloc(SCREEN_HEIGHT * sizeof(unsigned int *));
+    // if (buffer == NULL)
+    //     return (NULL);
+    // while (i <= SCREEN_HEIGHT)
+    // {
+    //     buffer[i] = (unsigned int *)malloc(SCREEN_WIDTH * sizeof(unsigned int *));
+    //     if (buffer == NULL)
+    //         return (NULL);
+    //     i++;
+    // }
+    //mlx_xpm_file_to_image(ray->mlx, "")
     while (x < SCREEN_WIDTH)
     {
         ray->camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
@@ -94,21 +108,21 @@ void put_ray_colors(t_ray *ray, int *x)
     if (ray->side == 1)
         ray->wall_color = 0xF5EFFF;
     i = ray->draw_start;
-    while(i <= ray->draw_end)
+    while(i < ray->draw_end)
     {
         ray->addr[i * ray->line_length / 4 + *x] = ray->wall_color;
         i++;
     }
     i = ray->draw_end;
     ray->floor_color = 0xA594F9;
-    while(i <= SCREEN_HEIGHT)
+    while(i < SCREEN_HEIGHT)
     {
         ray->addr[i * ray->line_length / 4 + *x] = ray->floor_color;
         i++;
     }
     i = ray->draw_start;
     ray->ceilling_color = 0xE5D9F2;
-    while(i >= 0)
+    while(i > 0)
     {
         ray->addr[i * ray->line_length / 4 + *x] = ray->ceilling_color;
         i--;
