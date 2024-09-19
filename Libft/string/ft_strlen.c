@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:19:53 by lauger            #+#    #+#             */
-/*   Updated: 2023/11/01 15:06:26 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/18 10:27:29 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
-	if (!s)
+	if (!s || s == NULL)
 		return (0);
 	while (s[i] != '\0')
 		i++;
