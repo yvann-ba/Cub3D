@@ -3,22 +3,23 @@
 int render_next_frame(t_ray *ray)
 {
     int x;
-    // int i;
+    int i;
     x = 0;
-    // i = 0;
-    // unsigned int **buffer;
+    i = 0;
 
-    // buffer = (unsigned int **)malloc(SCREEN_HEIGHT * sizeof(unsigned int *));
-    // if (buffer == NULL)
-    //     return (NULL);
-    // while (i <= SCREEN_HEIGHT)
-    // {
-    //     buffer[i] = (unsigned int *)malloc(SCREEN_WIDTH * sizeof(unsigned int *));
-    //     if (buffer == NULL)
-    //         return (NULL);
-    //     i++;
-    // }
-    //mlx_xpm_file_to_image(ray->mlx, "")
+
+    unsigned int **buffer;
+
+    buffer = (unsigned int **)malloc(SCREEN_HEIGHT * sizeof(unsigned int *));
+    if (buffer == NULL)
+        return (NULL);
+    while (i <= SCREEN_HEIGHT)
+    {
+        buffer[i] = (unsigned int *)malloc(SCREEN_WIDTH * sizeof(unsigned int *));
+        if (buffer == NULL)
+            return (NULL);
+        i++;
+    }
     while (x < SCREEN_WIDTH)
     {
         ray->camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
@@ -85,6 +86,21 @@ int render_next_frame(t_ray *ray)
         ray->draw_end = ray->line_height / 2 + SCREEN_HEIGHT / 2;
         if (ray->draw_end >= SCREEN_HEIGHT)
             ray->draw_end = SCREEN_HEIGHT - 1;
+
+        
+        //texturing calculations
+        int texNum = ray->int_map[ray->map_x][ray->map_y] - 1; //1 subtracted from it so that texture 0 can be used!
+
+        //calculate value of wallX
+        double wallX; //where exactly the wall was hit
+        if (ray->side == 0) wallX = ray->pos_y + ray->perp_wall_dist * ray->ray_dir_y;
+        else           wallX = ray->pos_x + ray->perp_wall_dist * ray->ray_dir_x;
+        wallX -= floor((wallX));
+
+        //x coordinate on the texture
+        int texX = int(wallX * double(TEX_WIDTH));
+        if(ray->side == 0 && ray->ray_dir_x > 0) texX = TEX_WIDTH - texX - 1;
+        if(ray->side == 1 && ray->ray_dir_y < 0) texX = TEX_WIDTH - texX - 1;
         put_ray_colors(ray, &x);
 		x++;
 	}
