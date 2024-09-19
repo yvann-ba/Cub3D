@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   grab_file_data_map.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:55:41 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/10 13:53:16 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/19 10:41:34 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ static int	contains_only_these_caractere(char **map)
 		while(map[i][j] != 0)
 		{
 			if (map[i][j] != '0' && map[i][j] != '1' && map[i][j] != ' '
-				&& map[i][j] != 'N' && map[i][j] != 'S' && map[i][j] != 'O'
+				&& map[i][j] != 'N' && map[i][j] != 'S' && map[i][j] != 'E'
 				&& map[i][j] != 'W')
 				return (1);
-			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'O'
+			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E'
 				|| map[i][j] == 'W')
 				player++;
 			j++;
