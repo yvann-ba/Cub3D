@@ -4,6 +4,11 @@
 # define BUFFER_SIZE 1024
 # define MAX_RGB 255
 
+
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 480
+#define TEX_WIDTH 64
+#define TEX_HEIGHT 64
 //COLORS
 # define BLACK		"\033[0;30m"
 # define RED		"\033[0;31m"
@@ -57,6 +62,9 @@ typedef struct s_rgb
 // RAYCASTING & GRAPHICS
 typedef struct s_ray
 {
+	int		wall_color;
+	int		floor_color;
+	int		ceilling_color;
 	void        *mlx;
 	void        *mlx_win;
 	void        *img;
@@ -64,7 +72,6 @@ typedef struct s_ray
 	int         bpp;
 	int         line_length;
 	int         endian;
-
 	int     **int_map;
 	int     screen_width;
 	int     screen_height;
@@ -75,7 +82,6 @@ typedef struct s_ray
 	double	player_half_fov;
 	double	ray_increment_angle;
 	int		raycasting_precision;
-	int		**map;
 	double	player_angle;
 	double	pos_x;
 	double	pos_y;
@@ -115,8 +121,11 @@ typedef struct s_data
 	void		*south;
 	void		*west;
 	void		*east;
-	t_rgb		*f_rgb;
-	t_rgb		*c_rgb;
+	int			size_image;
+	t_rgb		*f_int_rgb;
+	t_rgb		*c_int_rgb;
+	long long int			f_hex_rgb;
+	long long int			c_hex_rgb;
 	int			fd_map;
 	char**		map;
 	int			map_width;
@@ -157,6 +166,17 @@ void    print_2d_array(char **array, int rows);
 //CLEAN_EXIT
 void    pars_clean_exit(t_data *data);
 void    pars_clean_return(t_data *data);
+int		clean_close_windows(void *param);
+
+//open_textures.c
+int		open_textures_paths(t_data *data, char **c_map);
+
+//int_to_hex
+char	*int_to_hex(int	nbr);
+char	*convert_rgb_to_hex(int R, int G, int B);
+
+//utils_parse
+char*	deblank(char* input);
 //--------------------------------------------LILIEN
 
 
@@ -167,13 +187,18 @@ void	init_ray_values(t_ray *ray);
 void	init_ray(t_ray *ray, t_data *data, int **int_map);
 int		setup_mlx(t_ray *ray);
 int		clean_close_windows(void *param);
+void	paths_to_mlx_image(t_data *data);
 
 //CLEAN_EXIT
 void    pars_clean_exit(t_data *data);
 void    pars_clean_return(t_data *data);
+void	free_mlx_images(t_data *data);
+void	all_clean_exit(t_data *data);
 
 //RAYCASTING
 int render_next_frame(t_ray *ray);
+void put_ray_colors(t_ray *ray, int *x);
+
 
 //RAY_UTILS
 long get_current_time_millis(void);
@@ -187,6 +212,7 @@ void parse_map(t_ray *ray, t_data *data, int **int_map);
 int 	move_player(int keycode, t_ray *ray);
 int 	rotate_player(int keycode, t_ray *ray);
 int		key_hook(int keycode, t_ray *ray);
+
 
 //--------------------------------------------YVANN
 
