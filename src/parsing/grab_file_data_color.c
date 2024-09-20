@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 09:42:57 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/20 09:29:28 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/20 10:58:12 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,12 +119,12 @@ static int	search_id_color(t_data *data, char *id)
 	p_color = -1;
 	while (data->read_file->tab_content[i])
 	{
-		if (check_line(data->read_file, id, i, 2) == -2)
+		if (check_line(data->read_file, id, i, 1) == -2)
 		{
-			ft_putstr_fd(RED "Error:\nFile format is incorect\n" WHITE, 2);
+			ft_putstr_fd(RED "Error:\nFFile format is incorect\n" WHITE, 2);
 			pars_clean_exit(data);
 		}
-		else if (check_line(data->read_file, id, i, 2) == 0)
+		else if (check_line(data->read_file, id, i, 1) == 0)
 		{
 			p_color = i;
 			break ;
@@ -163,7 +163,7 @@ void	grab_color(t_data *data)
 	int p_ceiling = search_id_color(data, "C ");
 	if (p_floor == -1 || p_ceiling == -1)
 	{
-		ft_putstr_fd(RED "Error:\nFile format is incorect\n" WHITE, 2);
+		ft_putstr_fd(RED "Error:\nFile format is incorect:"WHITE " there are not value flor r ceilling\n", 2);
 		pars_clean_exit(data);
 	}
 	take_colors_value(data->read_file, p_floor, p_ceiling);

@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:06:18 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/20 09:28:46 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/20 11:04:03 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,28 @@
 int	check_line(t_read_file *rf, char *id, int num_line, int value_check)
 {
 	int		result;
+	char	*line;
 
 	result = 0;
+	line = NULL;
+	line = deblank(rf->tab_content[num_line]);
 	if (rf == NULL || ft_strlen(id) < (size_t)value_check)
 		return (-2);
-	result = ft_strncmp(rf->tab_content[num_line], id, value_check);
+	//printf("=====%c\n", line[value_check]);
+	result = ft_strncmp(line, id, value_check);
+	free(line);
 	return (result);
 }
 
 static int	check_path(t_read_file *rf, int num_line, char *id)
 {
 	char	*str;
+	char	*line;
 
 	if (rf == NULL)
 		pars_clean_exit(rf->data);
-	str = ft_substr(rf->tab_content[num_line], 3, ft_strlen(rf->tab_content[num_line]) - 3);
+	line = deblank(rf->tab_content[num_line]);
+	str = ft_substr(line, 2, ft_strlen(line) - 2);
 	if (str == NULL)
 		return (-1);
 	if (has_extenssion(str, ".xpm") == false)
@@ -61,6 +68,7 @@ static int	check_path(t_read_file *rf, int num_line, char *id)
 			return (-1);
 		rf->p_east = str;
 	}
+	free(line);
 	return (0);
 }
 
@@ -70,7 +78,7 @@ static int	valid_value(t_data *data, char *id, int i)
 	{
 		if (check_line(data->read_file, id, i, 2) != 0)
 		{
-			ft_printf(RED "EEError:\nFile format is incorect\n" WHITE);
+			ft_printf(RED "Error:\nFile format is incorect\n" WHITE);
 			pars_clean_exit(data);
 		}
 		if (check_path(data->read_file, i, id) != 0)

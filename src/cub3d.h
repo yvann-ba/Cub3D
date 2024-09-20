@@ -174,6 +174,9 @@ int		open_textures_paths(t_data *data, char **c_map);
 //int_to_hex
 char	*int_to_hex(int	nbr);
 char	*convert_rgb_to_hex(int R, int G, int B);
+
+//utils_parse
+char*	deblank(char* input);
 //--------------------------------------------LILIEN
 
 
