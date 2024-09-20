@@ -21,10 +21,10 @@ void	paths_to_mlx_image(t_data *data)
 {
 	if (!data)
 		return ;
-	data->north = mlx_xpm_file_to_image(data->ray->mlx, data->read_file->p_north, TEX_WIDTH, TEX_HEIGHT);
-	data->south = mlx_xpm_file_to_image(data->ray->mlx, data->read_file->p_south, TEX_WIDTH, TEX_HEIGHT);
-	data->west = mlx_xpm_file_to_image(data->ray->mlx, data->read_file->p_west, TEX_WIDTH, TEX_HEIGHT);
-	data->east = mlx_xpm_file_to_image(data->ray->mlx, data->read_file->p_east, TEX_WIDTH, TEX_HEIGHT);
+	data->north = mlx_xpm_file_to_image(data->ray->mlx, data->read_file->p_north, (int *)TEX_WIDTH, (int *)TEX_HEIGHT);
+	data->south = mlx_xpm_file_to_image(data->ray->mlx, data->read_file->p_south, (int *)TEX_WIDTH, (int *)TEX_HEIGHT);
+	data->west = mlx_xpm_file_to_image(data->ray->mlx, data->read_file->p_west, (int *)TEX_WIDTH, (int *)TEX_HEIGHT);
+	data->east = mlx_xpm_file_to_image(data->ray->mlx, data->read_file->p_east, (int *)TEX_WIDTH, (int *)TEX_HEIGHT);
 	if (data->north == NULL || data->south == NULL || data->west || data->east)
 	{
 		printf(RED"Error:\nimage paths is incorrect\n"WHITE);
