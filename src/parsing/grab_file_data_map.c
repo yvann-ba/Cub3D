@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   grab_file_data_map.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 08:55:41 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/19 10:41:34 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/09/20 09:03:18 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,9 @@ static int	contains_only_these_caractere(char **map)
 			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E'
 				|| map[i][j] == 'W')
 				player++;
+			if ((map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E'
+				|| map[i][j] == 'W') && map[i][j + 1] == '\0')
+				return (2);
 			j++;
 		}
 		i++;
@@ -99,10 +102,14 @@ void	grab_map(t_data *data)
 		ft_putstr_fd(RED"Error:\nmalloc failed"WHITE, 2);
 		pars_clean_exit(data);
 	}
-	//print_2d_array(data->map, 15);
 	if (contains_only_these_caractere(data->map) == 1)
 	{
 		ft_putstr_fd(RED"Error:\nincorect map format"WHITE" must be contains of '0' '1' SPACE 'N' 'S' 'W' 'O'\n", 2);
+		pars_clean_exit(data);
+	}
+	if (contains_only_these_caractere(data->map) == 2)
+	{
+		ft_putstr_fd(RED"Error:\nincorect map format:"WHITE" player doesn't must be next to 'EOF'\n", 2);
 		pars_clean_exit(data);
 	}
 	if (check_only_spaces_ones(data->map, 0, ft_tab_len(data->map)) == 1

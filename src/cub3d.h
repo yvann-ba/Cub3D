@@ -124,8 +124,8 @@ typedef struct s_data
 	int			size_image;
 	t_rgb		*f_int_rgb;
 	t_rgb		*c_int_rgb;
-	char		*f_hex_rgb;
-	char		*c_hex_rgb;
+	long long int			f_hex_rgb;
+	long long int			c_hex_rgb;
 	int			fd_map;
 	char**		map;
 	int			map_width;

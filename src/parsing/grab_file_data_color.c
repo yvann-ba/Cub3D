@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 09:42:57 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/19 11:07:18 by lauger           ###   ########.fr       */
+/*   Updated: 2024/09/20 09:29:28 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,26 @@ static int	search_id_color(t_data *data, char *id)
 	return (p_color);
 }
 
+int parseHex(char* input){
+	int result = 0;
+	while(input && *input){
+		if(*input >= '0' && *input <= '9'){
+			result <<= 4;
+			result+= *input - '0';
+		}
+		if(*input >= 'a' && *input <= 'f'){
+			result <<= 4;
+			result+= *input - 'a'+10;
+		}
+		if(*input >= 'A' && *input <= 'F'){
+			result <<= 4;
+			result+= *input - 'A'+10;
+		} 
+		input++;
+	}
+	return result;
+}
+
 void	grab_color(t_data *data)
 {
 	if (!data)
@@ -147,12 +167,12 @@ void	grab_color(t_data *data)
 		pars_clean_exit(data);
 	}
 	take_colors_value(data->read_file, p_floor, p_ceiling);
-	// printf(MAGENTA"color->floor : %d, %d, %d\n", data->f_int_rgb->red, data->f_int_rgb->green, data->f_int_rgb->blue);
-	// printf(MAGENTA"color->ceiling : %d, %d, %d\n", data->c_int_rgb->red, data->c_int_rgb->green, data->c_int_rgb->blue);
-	data->f_hex_rgb = convert_rgb_to_hex(data->f_int_rgb->red, data->f_int_rgb->green, data->f_int_rgb->blue);
-	//printf("\n");
-	data->c_hex_rgb = convert_rgb_to_hex(data->c_int_rgb->red, data->c_int_rgb->green, data->c_int_rgb->blue);
-	// printf(BLUE"Finaly floor : %s\n", data->f_hex_rgb);
-	// printf(BLUE"Finaly ceiling : %s\n", data->c_hex_rgb);
+	//data->f_hex_rgb = convert_rgb_to_hex(data->f_int_rgb->red, data->f_int_rgb->green, data->f_int_rgb->blue);
+	//data->c_hex_rgb = convert_rgb_to_hex(data->c_int_rgb->red, data->c_int_rgb->green, data->c_int_rgb->blue);
+	// printf(GREEN"%d, %d, %d\n"WHITE, data->f_int_rgb->red, data->f_int_rgb->green, data->f_int_rgb->blue);
+	data->f_hex_rgb = (data->f_int_rgb->red << 16) + (data->f_int_rgb->green << 8) + (data->f_int_rgb->blue);
+	data->c_hex_rgb = (data->c_int_rgb->red << 16) + (data->c_int_rgb->green << 8) + (data->c_int_rgb->blue);
+	// printf(BLUE"Finaly floor : %lld\n"WHITE, data->f_hex_rgb);
+	// printf(BLUE"Finaly ceiling :%lld\n"WHITE, data->c_hex_rgb);
 	return ;
 }
