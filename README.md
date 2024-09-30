@@ -9,7 +9,7 @@
 
 
 #### 📄 Official 42 School Subject:
-[Cu3D Subject](https://github.com/yvann-ba/Cub3D/blob/main/en.subject.pdf)
+[Cu3D Subject](https://github.com/yvann-ba/Cub3D/blob/Github/en.subject.pdf)
 
 ## 🌟 Features
 - First-person 3D game using raycasting
