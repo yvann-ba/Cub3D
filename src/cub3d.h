@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:49:18 by lauger            #+#    #+#             */
-/*   Updated: 2024/10/15 14:24:01 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/10/15 15:03:23 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,6 @@ typedef struct s_ray
 	int					bpp;
 	int					size_line;
 	int					endian;
-	// int					bpp_c;
-	// int					size_line_c;
-	// int					endian_c;
-	// int					*addr_c;
 	int					**int_map;
 	double				pos_x;
 	double				pos_y;
