@@ -1,29 +1,19 @@
-#include "../cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pars_clean_exit.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/23 10:12:27 by lauger            #+#    #+#             */
+/*   Updated: 2024/09/24 12:48:37 by lauger           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// void	free_mlx_images(t_data *data)
-// {
-// 	if (!data)
-// 		return ;
-// 	if (data->north)
-// 		mlx_destroy_image(data->ray->mlx, data->north);
-// 	if (data->south)
-// 		mlx_destroy_image(data->ray->mlx, data->south);
-// 	if (data->west)
-// 		mlx_destroy_image(data->ray->mlx, data->west);
-// 	if (data->east)
-// 		mlx_destroy_image(data->ray->mlx, data->east);
-// }
+#include "../cub3d.h"
 
 void	all_clean_exit(t_data *data)
 {
-	// if (data->north)
-	// 	free(data->north);
-	// if (data->south)
-	// 	free(data->south);
-	// if (data->west)
-	// 	free(data->west);
-	// if (data->east)
-	// 	free(data->east);
 	if (data->ray->img)
 		mlx_destroy_image(data->ray->mlx, data->ray->img);
 	if (data->ray->mlx)
@@ -38,20 +28,21 @@ void	all_clean_exit(t_data *data)
 
 void	pars_clean_exit(t_data *data)
 {
-	if (data->read_file->p_north)
-		free(data->read_file->p_north);
-	if (data->read_file->p_south)
-		free(data->read_file->p_south);
-	if (data->read_file->p_west)
-		free(data->read_file->p_west);
-	if (data->read_file->p_east)
-		free(data->read_file->p_east);
-	if (data->read_file->str_content)
-		free(data->read_file->str_content);
-	if (data->read_file->tab_content)
-		ft_free_tab(data->read_file->tab_content);
-	if (data->read_file)
-		free(data->read_file);
+	if (data->rf->p_north)
+		free(data->rf->p_north);
+	if (data->rf->p_south)
+		free(data->rf->p_south);
+	if (data->rf->p_west)
+		free(data->rf->p_west);
+	if (data->rf->p_east)
+		free(data->rf->p_east);
+	if (data->rf->str_content)
+		free(data->rf->str_content);
+	if (data->rf->tab_content)
+		ft_free_tab(data->rf->tab_content);
+	close (data->fd_file);
+	if (data->rf)
+		free(data->rf);
 	if (data->c_int_rgb)
 		free(data->c_int_rgb);
 	if (data->f_int_rgb)
@@ -65,20 +56,20 @@ void	pars_clean_exit(t_data *data)
 
 void	pars_clean_return(t_data *data)
 {
-	if (data->read_file->str_content)
-		free(data->read_file->str_content);
-	if (data->read_file->tab_content)
-		ft_free_tab(data->read_file->tab_content);
-	if (data->read_file->p_north)
-		free(data->read_file->p_north);
-	if (data->read_file->p_south)
-		free(data->read_file->p_south);
-	if (data->read_file->p_west)
-		free(data->read_file->p_west);
-	if (data->read_file->p_east)
-		free(data->read_file->p_east);
-	if (data->read_file)
-		free(data->read_file);
+	if (data->rf->str_content)
+		free(data->rf->str_content);
+	if (data->rf->tab_content)
+		ft_free_tab(data->rf->tab_content);
+	if (data->rf->p_north)
+		free(data->rf->p_north);
+	if (data->rf->p_south)
+		free(data->rf->p_south);
+	if (data->rf->p_west)
+		free(data->rf->p_west);
+	if (data->rf->p_east)
+		free(data->rf->p_east);
+	if (data->rf)
+		free(data->rf);
 	if (data->c_int_rgb)
 		free(data->c_int_rgb);
 	if (data->f_int_rgb)

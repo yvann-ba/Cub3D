@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   grab_file_data.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:06:18 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/20 11:24:12 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/10/15 09:10:19 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,71 +19,33 @@ int	check_line(t_read_file *rf, char *id, int num_line, int value_check)
 
 	result = 0;
 	line = NULL;
-	line = deblank(rf->tab_content[num_line]);
-	if (rf == NULL || ft_strlen(id) < (size_t)value_check)
+	line = deblank(rf->tab_content[num_line], 0);
+	if (rf == NULL || ft_strlen(id) < (size_t)value_check || !line)
 		return (-2);
-	//printf("=====%c\n", line[value_check]);
 	result = ft_strncmp(line, id, value_check);
 	free(line);
 	return (result);
 }
 
-static int	check_path(t_read_file *rf, int num_line, char *id)
+static int	valid_value(t_data *data, char *id, int i, int *nb_paths)
 {
-	char	*str;
-	char	*line;
-
-	if (rf == NULL)
-		pars_clean_exit(rf->data);
-	line = deblank(rf->tab_content[num_line]);
-	str = ft_substr(line, 2, ft_strlen(line) - 2);
-	if (str == NULL)
-		return (-1);
-	if (has_extenssion(str, ".xpm") == false)
+	if (ft_strstr(data->rf->tab_content[i], id))
 	{
-		free(str);
-		return (-1);
-	}
-	if (ft_strcmp(id, "NO") == 0)
-	{
-		if (rf->p_north != NULL)
-			return (-1);
-		rf->p_north = str;
-	}
-	else if (ft_strcmp(id, "SO") == 0)
-	{
-		if (rf->p_south != NULL)
-			return (-1);
-		rf->p_south = str;
-	}
-	else if (ft_strcmp(id, "WE") == 0)
-	{
-	if (rf->p_west != NULL)
-			return (-1);
-		rf->p_west = str;
-	}
-	else if (ft_strcmp(id, "EA") == 0)
-	{
-		if (rf->p_east != NULL)
-			return (-1);
-		rf->p_east = str;
-	}
-	free(line);
-	return (0);
-}
-
-static int	valid_value(t_data *data, char *id, int i)
-{
-	if (ft_strstr(data->read_file->tab_content[i], id))
-	{
-		if (check_line(data->read_file, id, i, 2) != 0)
+		*nb_paths += 1;
+		if (*nb_paths > 4)
 		{
-			ft_printf(RED "Error:\nFile format is incorect\n" WHITE);
+			ft_printf(RED "Error:\nThe File must have 4 paths "
+				"(NO, SO, WE, EA)\n" WHITE);
 			pars_clean_exit(data);
 		}
-		if (check_path(data->read_file, i, id) != 0)
+		if (check_line(data->rf, id, i, 2) != 0)
 		{
-			ft_printf(RED "Error:\nFile not have the extenssion .xpm\n" WHITE);
+			ft_printf(RED "Error:\nFile format is incorrect\n" WHITE);
+			pars_clean_exit(data);
+		}
+		if (check_path(data->rf, i, id) != 0)
+		{
+			ft_printf(RED "Error:\nFile not have the extension .xpm\n" WHITE);
 			pars_clean_exit(data);
 		}
 	}
@@ -93,42 +55,27 @@ static int	valid_value(t_data *data, char *id, int i)
 static void	grab_sprite_paths(t_data *data)
 {
 	int	i;
+	int	nb_paths;
 
 	i = 0;
-	if (data->read_file == NULL)
+	nb_paths = 0;
+	if (data->rf == NULL)
 		pars_clean_exit(data);
-	while(data->read_file->tab_content[i])
+	while (data->rf->tab_content[i])
 	{
-		valid_value(data, "NO", i);
-		valid_value(data, "SO", i);
-		valid_value(data, "WE", i);
-		valid_value(data, "EA", i);
+		valid_value(data, "NO", i, &nb_paths);
+		valid_value(data, "SO", i, &nb_paths);
+		valid_value(data, "WE", i, &nb_paths);
+		valid_value(data, "EA", i, &nb_paths);
 		i++;
 	}
-		return ;
-}
-
-static void	manage_utilization_flood_fill(t_data *data, char **c_map)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while(c_map[i] != NULL)
+	if (nb_paths != 4)
 	{
-		j = 0;
-		while (c_map[i][j] != '\0')
-		{
-			if (flood_fill(c_map, i, j) == -1)
-			{
-				ft_putstr_fd(RED"Error:\nInvalid Map:" WHITE" must be around of walls\n", 2);
-				ft_free_tab(c_map);
-				pars_clean_exit(data);
-			}
-			j++;
-		}
-		i++;
+		ft_printf(RED "Error:\nThe File must have 4 paths "
+			"(NO, SO, WE, EA)\n" WHITE);
+		pars_clean_exit(data);
 	}
+	return ;
 }
 
 void	grab_data(t_data *data)

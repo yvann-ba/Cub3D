@@ -5,19 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/20 10:09:05 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/20 10:49:02 by lauger           ###   ########.fr       */
+/*   Created: 2024/09/23 10:40:31 by lauger            #+#    #+#             */
+/*   Updated: 2024/09/24 13:20:33 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-char*	deblank(char *input)
+char	*deblank(char *input, int state)
 {
 	char	*output;
 	int		i;
 	int		j;
-	
+
 	output = ft_calloc(sizeof(char), ft_strlen(input) + 1);
 	i = 0;
 	j = 0;
@@ -29,6 +29,11 @@ char*	deblank(char *input)
 			j--;
 		i++;
 		j++;
+	}
+	if (state == 1)
+	{
+		if (input)
+			free(input);
 	}
 	return (output);
 }

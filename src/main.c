@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/24 12:46:38 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/09/24 12:46:39 by ybarbot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static void	init_data(t_data *data)
@@ -15,14 +27,15 @@ static void	init_data(t_data *data)
 	data->map = NULL;
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	t_data *data;
-	t_ray *ray;
+	t_data	*data;
+	t_ray	*ray;
 
 	if (ac != 2)
 	{
-		ft_printf(RED"Error:\nNumber of arguments is incorrect:" WHITE" require format (./cub3d file.cub)\n");
+		ft_printf(RED"Error:\nNumber of arguments is incorrect:"
+			WHITE" require format (./cub3d file.cub)\n");
 		return (1);
 	}
 	data = malloc(sizeof(t_data));
@@ -32,9 +45,9 @@ int main(int ac, char **av)
 		exit(1);
 	}
 	init_data(data);
-	data->fd_map = open_file(av[1], data);
-	data->read_file = read_file_to_string(data->fd_map, data);
-	string_to_tab(data->read_file);
+	data->fd_file = open_file(av[1], data);
+	data->rf = read_file_to_string(data->fd_file, data);
+	string_to_tab(data->rf);
 	grab_data(data);
 	ray = (t_ray *)malloc(sizeof(t_ray));
 	ray->int_map = allocate_int_map(data);

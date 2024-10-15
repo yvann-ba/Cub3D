@@ -1,5 +1,16 @@
-#include "cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/24 12:46:53 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/09/24 12:46:54 by ybarbot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "cub3d.h"
 
 int	find_max_lenght(char **map)
 {
@@ -25,10 +36,10 @@ int	find_max_lenght(char **map)
 	return (max_lenght);
 }
 
-int **allocate_int_map(t_data *data)
+int	**allocate_int_map(t_data *data)
 {
-	int **int_map;
-	int i;
+	int	**int_map;
+	int	i;
 
 	data->map_width = find_max_lenght(data->map) + 1;
 	if (!data->map_width)
@@ -54,48 +65,20 @@ int **allocate_int_map(t_data *data)
 	return (int_map);
 }
 
-void set_player_position(t_ray *ray, int x, int y, char direction)
+void	fill_map_holes(t_data *data, int **int_map, int *x, int *y)
 {
-	// ray->pos_x = x + 0.5;
-	// ray->pos_y = y + 0.5;
-	
-	ray->pos_x = y + 0.5;
-	ray->pos_y = x + 0.5;
-	if (direction == 'N')
+	while ((*x) < data->map_width)
 	{
-		ray->dir_x = -1;
-		ray->dir_y = 0;
-		ray->plane_x = 0;
-		ray->plane_y = 0.66;
+		int_map[*y][*x] = -1;
+		(*x)++;
 	}
-	else if (direction == 'S')
-	{
-		ray->dir_x = 1;
-		ray->dir_y = 0;
-		ray->plane_x = 0;
-		ray->plane_y = -0.66;
-	}
-	else if (direction == 'E')
-	{
-		ray->dir_x = 0;
-		ray->dir_y = 1;
-		ray->plane_x = 0.66;
-		ray->plane_y = 0;
-	}
-	else if (direction == 'W')
-	{	
-		ray->dir_x = 0;
-		ray->dir_y = -1 ;
-		ray->plane_x = -0.66;
-		ray->plane_y = 0;
-	}
-	printf("Player position set to: (%f, %f)\n", ray->pos_x, ray->pos_y);
+	(*y)++;
 }
 
-void parse_map(t_ray *ray, t_data *data, int **int_map)
+void	parse_map(t_ray *ray, t_data *data, int **int_map)
 {
-	int y;
-	int x;
+	int	y;
+	int	x;
 	int	size_line;
 
 	y = 0;
@@ -112,23 +95,11 @@ void parse_map(t_ray *ray, t_data *data, int **int_map)
 			else if (data->map[y][x] == 'N' || data->map[y][x] == 'S' \
 			|| data->map[y][x] == 'E' || data->map[y][x] == 'W')
 			{
-				printf("Player position found at: (%d, %d)\n", x, y);
 				set_player_position(ray, x, y, data->map[y][x]);
 				int_map[y][x] = 0;
 			}
 			x++;
 		}
-		while (x < data->map_width)
-		{
-			int_map[y][x] = -1;
-			x++;
-		}
-		y++;
+		fill_map_holes(data, int_map, &x, &y);
 	}
-	printf("Input Map (char):\n");
-	ft_print_char_tab(data->map);
-	printf("\n");
-	printf("Int Map to Ray:\n");
-	ft_print_int_tab(int_map, data->map_height, data->map_width);
-	printf("\n");
 }
