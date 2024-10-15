@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 12:07:02 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/09/24 12:49:28 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/10/15 14:17:37 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,47 +53,44 @@ void	rotate_1(int keycode, t_ray *ray)
 
 void	move_player_y(int keycode, t_ray *ray)
 {
-	if (keycode == 119)
+    if (keycode == 119) // Touche 'w' pour avancer
+    {
+        if (ray->int_map[(int)(ray->pos_y)][(int)(ray->pos_x + ray->dir_x * ray->move_speed)] == 0)
+            ray->pos_x += ray->dir_x * ray->move_speed;
+        if (ray->int_map[(int)(ray->pos_y + ray->dir_y * ray->move_speed)][(int)(ray->pos_x)] == 0)
+            ray->pos_y += ray->dir_y * ray->move_speed;
+    }
+	if (keycode == 115) // Touche 's' pour reculer
 	{
-		if (ray->int_map[(int)(ray->pos_x + ray->dir_x
-				* ray->move_speed)][(int)(ray->pos_y)] == 0)
-			ray->pos_x += ray->dir_x * ray->move_speed;
-		if (ray->int_map[(int)(ray->pos_x)][(int)(ray->pos_y + ray->dir_y
-				* ray->move_speed)] == 0)
-			ray->pos_y += ray->dir_y * ray->move_speed;
-	}
-	if (keycode == 115)
-	{
-		if (ray->int_map[(int)(ray->pos_x - ray->dir_x
-				* ray->move_speed)][(int)(ray->pos_y)] == 0)
+		if (ray->int_map[(int)(ray->pos_y)][(int)(ray->pos_x - ray->dir_x * ray->move_speed)] == 0)
 			ray->pos_x -= ray->dir_x * ray->move_speed;
-		if (ray->int_map[(int)(ray->pos_x)][(int)(ray->pos_y
-				- ray->dir_y * ray->move_speed)] == 0)
+		if (ray->int_map[(int)(ray->pos_y - ray->dir_y * ray->move_speed)][(int)(ray->pos_x)] == 0)
 			ray->pos_y -= ray->dir_y * ray->move_speed;
 	}
 }
 
-void	move_player_x(int keycode, t_ray *ray)
+void move_player_x(int keycode, t_ray *ray)
 {
-	if (keycode == 100)
+    double perp_dir_x = ray->dir_y;
+    double perp_dir_y = -ray->dir_x;
+
+    if (keycode == 100) // Touche 'd' pour aller à droite
+    {
+        if (ray->int_map[(int)(ray->pos_y)][(int)(ray->pos_x + perp_dir_x * ray->move_speed)] == 0)
+            ray->pos_x += perp_dir_x * ray->move_speed;
+        if (ray->int_map[(int)(ray->pos_y + perp_dir_y * ray->move_speed)][(int)(ray->pos_x)] == 0)
+            ray->pos_y += perp_dir_y * ray->move_speed;
+    }
+	if (keycode == 97) // Touche 'a' pour aller à gauche
 	{
-		if (ray->int_map[(int)(ray->pos_x
-				- ray->dir_x * ray->move_speed)][(int)(ray->pos_y)] == 0)
-			ray->pos_y -= ray->dir_x * ray->move_speed;
-		if (ray->int_map[(int)(ray->pos_x)][(int)(ray->pos_y
-				- ray->dir_y * ray->move_speed)] == 0)
-			ray->pos_x += ray->dir_y * ray->move_speed;
+		if (ray->int_map[(int)(ray->pos_y)][(int)(ray->pos_x - perp_dir_x * ray->move_speed)] == 0)
+			ray->pos_x -= perp_dir_x * ray->move_speed;
+		if (ray->int_map[(int)(ray->pos_y - perp_dir_y * ray->move_speed)][(int)(ray->pos_x)] == 0)
+			ray->pos_y -= perp_dir_y * ray->move_speed;
 	}
-	if (keycode == 97)
-	{
-		if (ray->int_map[(int)(ray->pos_x + ray->dir_x
-				* ray->move_speed)][(int)(ray->pos_y)] == 0)
-			ray->pos_y += ray->dir_x * ray->move_speed;
-		if (ray->int_map[(int)(ray->pos_x)][(int)(ray->pos_y
-				+ ray->dir_y * ray->move_speed)] == 0)
-			ray->pos_x -= ray->dir_y * ray->move_speed;
-	}
+
 }
+
 
 int	key_hook(int keycode, t_ray *ray)
 {

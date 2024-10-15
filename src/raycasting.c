@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 12:10:36 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/09/24 14:19:24 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/10/15 13:59:48 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,17 @@ void	dda_algo(t_ray *ray)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (ray->int_map[ray->map_x][ray->map_y] > 0)
+		if (ray->map_x < 0 || ray->map_x >= ray->data->map_width ||
+		    ray->map_y < 0 || ray->map_y >= ray->data->map_height)
+		{
+			ray->hit = 1;
+			break;
+		}
+		if (ray->int_map[ray->map_y][ray->map_x] > 0)
 			ray->hit = 1;
 	}
 }
+
 
 void	draw_texture(t_ray *ray, int *x)
 {
@@ -39,12 +46,13 @@ void	draw_texture(t_ray *ray, int *x)
 	int	color;
 	int	tex_y;
 	int	d;
-
+	
 	y = ray->draw_start;
 	while (y <= ray->draw_end)
 	{
 		d = y * 256 - SCREEN_HEIGHT * 128 + ray->line_height * 128;
-		tex_y = ((d * ray->tx->height) / ray->line_height) / 256;
+		if (ray->line_height != 0)
+			tex_y = ((d * ray->tx->height) / ray->line_height) / 256;
 		if (tex_y < 0)
 			tex_y = 0;
 		if (tex_y >= ray->tx->height)
@@ -106,7 +114,7 @@ int	render_next_frame(t_ray *ray)
 	ray->time = get_current_time_millis();
 	ray->frame_time = (ray->time - ray->old_time) / 1000.0;
 	mlx_put_image_to_window(ray->mlx, ray->mlx_win, ray->img, 0, 0);
-	ray->move_speed = ray->frame_time * 10.0;
-	ray->rot_speed = ray->frame_time * 3.0;
+	ray->move_speed = ray->frame_time * 20.0;
+	ray->rot_speed = ray->frame_time * 6.0;
 	return (0);
 }

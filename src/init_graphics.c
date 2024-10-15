@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_graphics.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 12:52:58 by lauger            #+#    #+#             */
-/*   Updated: 2024/09/25 10:20:16 by lauger           ###   ########.fr       */
+/*   Updated: 2024/10/15 14:24:16 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ int	setup_mlx(t_ray *ray)
 	ray->img = mlx_new_image(ray->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	ray->addr = mlx_get_data_addr(ray->img, &ray->bpp,
 			&ray->size_line, &ray->endian);
-	ray->addr_c = (int *)mlx_get_data_addr(ray->img, &ray->bpp_c, \
-	&ray->size_line_c, &ray->endian_c);
+	// ray->addr_c = (int *)mlx_get_data_addr(ray->img, &ray->bpp_c, \
+	// &ray->size_line_c, &ray->endian_c);
 	mlx_hook(ray->mlx_win, 2, 1L << 0, key_hook, ray);
 	mlx_loop_hook(ray->mlx, render_next_frame, ray);
 	mlx_hook(ray->mlx_win, 17, 0, clean_close_windows, ray->data);
