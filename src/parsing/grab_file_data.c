@@ -87,6 +87,12 @@ void	grab_data(t_data *data)
 	grab_sprite_paths(data);
 	grab_color(data);
 	grab_map(data);
+	if ((long long)(ft_strlen(data->map[0])
+		* ft_tab_len(data->map)) >= (long long)(200 * 200))
+	{
+		ft_printf(RED"Error:\nThe map is too big\n"WHITE);
+		pars_clean_exit(data);
+	}
 	replace_space_to_wall(data);
 	c_map = ft_copy_tab(data->map, ft_tab_len(data->map));
 	if (c_map == NULL)
