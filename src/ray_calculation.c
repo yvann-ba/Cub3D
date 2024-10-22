@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 12:10:25 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/09/24 12:10:26 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/10/22 10:01:05 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,12 @@ void	texture_calculations(t_ray *ray)
 		ray->wall_x = ray->pos_x + ray->perp_wall_dist * ray->ray_dir_x;
 	ray->wall_x -= floor((ray->wall_x));
 	ray->tex_x = (int)(ray->wall_x * (double)ray->tx->width);
+	if (ray->tex_x < 0)
+		ray->tex_x = 0;
+	if (ray->tex_x >= ray->tx->width)
+	{
+		ray->tex_x = ray->tx->width - 1;
+	}
 	if (ray->side == 0 && ray->ray_dir_x > 0)
 		ray->tex_x = ray->tx->width - ray->tex_x - 1;
 	if (ray->side == 1 && ray->ray_dir_y < 0)

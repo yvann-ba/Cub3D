@@ -59,7 +59,9 @@ void	grab_color(t_data *data)
 		return ;
 	p_floor = search_id_color(data, "F ");
 	p_ceiling = search_id_color(data, "C ");
-	if (p_floor == -1 || p_ceiling == -1)
+	if (p_floor == -1 || p_ceiling == -1
+		|| ft_strlen(data->rf->tab_content[p_floor]) <= 3
+		|| ft_strlen(data->rf->tab_content[p_ceiling]) <= 3)
 	{
 		ft_putstr_fd(RED "Error:\nFile format is incorrect:"
 			WHITE" there are no floor or ceilling values\n"WHITE, 2);

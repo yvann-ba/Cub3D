@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 12:10:36 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/10/15 15:06:42 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/10/22 09:48:18 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ void	assign_calculate_ray(t_ray *ray, int *i)
 		ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
 	else
 		ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
+	if (ray->perp_wall_dist < 1e-6)
+		ray->perp_wall_dist = 1e-6;
 	ray->line_height = (int)(SCREEN_HEIGHT / ray->perp_wall_dist);
 	ray->draw_start = -ray->line_height / 2 + SCREEN_HEIGHT / 2;
 	if (ray->draw_start < 0)
