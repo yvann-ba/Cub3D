@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 12:10:36 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/10/22 09:48:18 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/10/22 14:41:18 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ void	dda_algo(t_ray *ray)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (ray->map_x < 0 || ray->map_x >= ray->data->map_width
-			|| ray->map_y < 0 || ray->map_y >= ray->data->map_height)
+		if (ray->map_y < 0 || ray->map_y >= ray->data->map_width
+			|| ray->map_x < 0 || ray->map_x >= ray->data->map_height)
 		{
 			ray->hit = 1;
 			break ;
 		}
-		if (ray->int_map[ray->map_y][ray->map_x] > 0)
+		if (ray->int_map[ray->map_x][ray->map_y] > 0)
 			ray->hit = 1;
 	}
 }
@@ -46,6 +46,7 @@ void	draw_texture(t_ray *ray, int *x)
 	int	tex_y;
 	int	d;
 
+	y = 0;
 	y = ray->draw_start;
 	while (y <= ray->draw_end)
 	{
@@ -115,7 +116,7 @@ int	render_next_frame(t_ray *ray)
 	ray->time = get_current_time_millis();
 	ray->frame_time = (ray->time - ray->old_time) / 1000.0;
 	mlx_put_image_to_window(ray->mlx, ray->mlx_win, ray->img, 0, 0);
-	ray->move_speed = ray->frame_time * 20.0;
-	ray->rot_speed = ray->frame_time * 6.0;
+	ray->move_speed = ray->frame_time * 5.0;
+	ray->rot_speed = ray->frame_time * 3.0;
 	return (0);
 }
