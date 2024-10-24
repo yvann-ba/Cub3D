@@ -1,4 +1,4 @@
-CC = clang
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 SRCS = src/main.c src/parsing/open_file_check_format.c \
@@ -43,10 +43,10 @@ $(MLX):
 
 $(OBJ_DIR)/%.o: src/%.c
 	@mkdir -p $(@D)  # Ensure the directory for the object file exists
-	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
+	$(CC) -O3 -Ofast $(CFLAGS) -c $< -o $@ $(INCLUDES)
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(MLX_FLAGS) $(LIBFT)
+	$(CC) -O3 -Ofast $(CFLAGS) $(OBJS) -o $(NAME) $(MLX_FLAGS) $(LIBFT)
 
 clean:
 	rm -rf $(OBJ_DIR)
